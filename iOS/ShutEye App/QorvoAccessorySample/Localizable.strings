@@ -1,0 +1,62 @@
+/*
+ * @file      Localizable.strings
+ *
+ * @brief     Class extension to define custom colors used along the project
+ *
+ * @author    Decawave Applications
+ *
+ * @attention {QORVO_LICENCE} Copyright 2017-2021 (c) DecaWave Ltd, Dublin, Ireland.
+ *            All rights reserved.
+ *
+ */
+
+"Disabled" = "Disabled";
+"Connect" = "Connect";
+"NotConnected" = "Not Connected";
+"Disconnect" = "Disconnect";
+
+// Accessory
+"NoAccessoryConnected" = "No Accessory Connected";
+"ScanningAccessory" = "Scanning for accessories";
+"ConnectingAccessory" = "Connecting to Accessory";
+"SelectedAccessory" = "Selected Accessory";
+"RequestConfFromAccessory" = "Requesting configuration data from accessory";
+"AccessoryDisconnected" = "Accessory disconnected";
+"DataInvalid" = "The accessory configuration data is invalid. Please debug it and try again";
+"AccessoryData1" = "Accessory shared data length was less than 1";
+
+// MARK - Session
+"SessionConfigured" = "Accessory Session configured";
+"SessionStarted" = "Accessory Session started";
+"SessionStopped" = "Accessory Session stopped";
+"SessionTimeOut" = "Session timed out";
+"SessionSuspended" = "Session was suspended";
+"SessionSuspendedEnded" = "Session suspension ended";
+"SessionInvalidated" = "Session invalidated. Restarting.";
+"SentConfData" = "Sent shareable configuration data";
+
+// iPhone 14
+"Converged" = "Converged";
+"LightError" = "More light required";
+"MovementNeeded" = "Try moving in a different direction...";
+"unknown" = "unknown";
+"same" = "same";
+"below" = "below";
+"above" = "above";
+
+
+// Utils
+"-" = "-";
+"Cancel" = "Cancel";
+"GoSettings" = "Go to Settings";
+
+// NI
+"NIAccessRequired" = "Nearby Interactions access required. You can change access for NIAccessory in Settings.";
+"AccessRequired" = "Access Required";
+"NIAccessRequired.message" = "NIAccessory requires access to Nearby Interactions for this sample app. Use this string to explain to users which functionality will be enabled if they change Nearby Interactions access in Settings.";
+
+// Report data
+"meters" = "%0.1f m";
+"degrees" = "%d°";
+"StartMeters" = "0.0 m";
+"StartDegrees" = "0°";
