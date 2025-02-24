@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0YM-Cb-p0L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="0YM-Cb-p0L">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -21,7 +21,7 @@
         <!--Qorvo Demo View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="QorvoDemoViewController" customModule="Qorvo_NI_Background" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="QorvoDemoViewController" customModule="Qorvo_NI_Background_copy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -29,13 +29,6 @@
                             <view autoresizesSubviews="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifk-w0-Waf" userLabel="Header">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="118"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Qorvo_logo" translatesAutoresizingMaskIntoConstraints="NO" id="E2X-TM-Tg4">
-                                        <rect key="frame" x="32" y="67" width="86" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="86" id="0uc-A8-fGk"/>
-                                            <constraint firstAttribute="height" constant="21" id="wrt-MZ-XPj"/>
-                                        </constraints>
-                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHU-bd-M60" userLabel="Settings">
                                         <rect key="frame" x="350" y="60" width="40" height="40"/>
                                         <constraints>
@@ -54,10 +47,8 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="fHU-bd-M60" secondAttribute="trailing" constant="24" id="LrU-zY-FWU"/>
-                                    <constraint firstItem="E2X-TM-Tg4" firstAttribute="leading" secondItem="Ifk-w0-Waf" secondAttribute="leading" constant="32" id="Yau-Hj-3Ts"/>
                                     <constraint firstAttribute="height" constant="118" id="dJK-Mx-dmo"/>
                                     <constraint firstItem="fHU-bd-M60" firstAttribute="top" secondItem="Ifk-w0-Waf" secondAttribute="top" constant="60" id="i5f-KT-HeY"/>
-                                    <constraint firstItem="E2X-TM-Tg4" firstAttribute="top" secondItem="Ifk-w0-Waf" secondAttribute="top" constant="67" id="oAO-zg-7g7"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="rBn-rm-59Z" userLabel="Main Stack View">
@@ -91,7 +82,7 @@
         <!--Settings View Controller-->
         <scene sceneID="iuU-AA-kAf">
             <objects>
-                <viewController id="a4S-cE-Lb9" userLabel="Settings View Controller" customClass="SettingsViewController" customModule="Qorvo_NI_Background" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="a4S-cE-Lb9" userLabel="Settings View Controller" customClass="SettingsViewController" customModule="Qorvo_NI_Background_copy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xAz-bH-XTy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -331,16 +322,15 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Qorvo_logo" width="86" height="21"/>
         <image name="back_icon" width="22" height="14"/>
         <image name="spinner_small" width="24" height="24"/>
         <image name="switch_on" width="56" height="48"/>
         <image name="three_dots" width="24" height="24"/>
         <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tintColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

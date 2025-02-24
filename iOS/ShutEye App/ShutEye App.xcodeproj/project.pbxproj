@@ -7,48 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		012C3068226FD13B00BADEF9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C3067226FD13B00BADEF9 /* AppDelegate.swift */; };
-		012C306D226FD13B00BADEF9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C306B226FD13B00BADEF9 /* Main.storyboard */; };
-		012C306F226FD13B00BADEF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 012C306E226FD13B00BADEF9 /* Assets.xcassets */; };
-		012C3072226FD13B00BADEF9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C3070226FD13B00BADEF9 /* LaunchScreen.storyboard */; };
-		3A5E19872606CD0000837A4A /* QorvoDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E19862606CD0000837A4A /* QorvoDemoViewController.swift */; };
-		3A5E19892606CE4B00837A4A /* NearbyInteraction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E19882606CE4B00837A4A /* NearbyInteraction.framework */; };
-		3A5E198B2606CE5000837A4A /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E198A2606CE5000837A4A /* CoreBluetooth.framework */; };
-		5A0BC7FA2A8FBD5A0044AF01 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5A0BC7F92A8FBD5A0044AF01 /* FirebaseCrashlytics */; };
-		5A0BC7FC2A8FBDE80044AF01 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A0BC7FB2A8FBDE80044AF01 /* GoogleService-Info.plist */; };
-		5A2E7BF629A8EE970050844E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E7BF529A8EE970050844E /* Localizable.strings */; };
-		6D1B0F082AA63D4100C1A2F7 /* SingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F062AA63D4100C1A2F7 /* SingleCell.swift */; };
-		6D1B0F092AA63D4100C1A2F7 /* AccessoriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F072AA63D4100C1A2F7 /* AccessoriesTable.swift */; };
-		6D1B0F192AA63D7600C1A2F7 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F0B2AA63D7500C1A2F7 /* SeparatorView.swift */; };
-		6D1B0F1C2AA63D7600C1A2F7 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F112AA63D7500C1A2F7 /* DeviceView.swift */; };
-		6D1B0F262AA649EC00C1A2F7 /* BluetoothLECentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F252AA649EC00C1A2F7 /* BluetoothLECentral.swift */; };
-		6D3B18072B32EFC600FB54EE /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B18062B32EFC600FB54EE /* NotificationManager.swift */; };
-		6D48923A2ABC5244009302B7 /* QorvoColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4892392ABC5244009302B7 /* QorvoColors.swift */; };
-		6D48923E2ABCA99F009302B7 /* QorvoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48923D2ABCA99F009302B7 /* QorvoFonts.swift */; };
-		6D4892402ABCE902009302B7 /* DesignConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48923F2ABCE902009302B7 /* DesignConstraints.swift */; };
-		6D7A16BB27E2521D00C53B39 /* 3d_arrow.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6D7A16BA27E2521D00C53B39 /* 3d_arrow.usdz */; };
-		6D84C9FB27875507003E3FFC /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 6D84C9FA27875507003E3FFC /* assets */; };
-		6D85D29E27BFB37800220F5D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D85D29D27BFB37800220F5D /* SettingsViewController.swift */; };
-		6D85D2AD27C3A07100220F5D /* Linotype - DINNextLTPro-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D29F27C3A07000220F5D /* Linotype - DINNextLTPro-MediumItalic.otf */; };
-		6D85D2AE27C3A07100220F5D /* Linotype - DINNextLTPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A027C3A07000220F5D /* Linotype - DINNextLTPro-Italic.otf */; };
-		6D85D2AF27C3A07100220F5D /* Linotype - DINNextLTPro-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A127C3A07000220F5D /* Linotype - DINNextLTPro-Heavy.otf */; };
-		6D85D2B027C3A07100220F5D /* Linotype - DINNextLTPro-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A227C3A07000220F5D /* Linotype - DINNextLTPro-BoldItalic.otf */; };
-		6D85D2B127C3A07100220F5D /* Linotype - DINNextLTPro-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A327C3A07000220F5D /* Linotype - DINNextLTPro-Black.otf */; };
-		6D85D2B227C3A07100220F5D /* Linotype - DINNextLTPro-UltraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A427C3A07000220F5D /* Linotype - DINNextLTPro-UltraLight.otf */; };
-		6D85D2B327C3A07100220F5D /* Linotype - DINNextLTPro-UltraLightIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A527C3A07000220F5D /* Linotype - DINNextLTPro-UltraLightIt.otf */; };
-		6D85D2B427C3A07100220F5D /* Linotype - DINNextLTPro-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A627C3A07000220F5D /* Linotype - DINNextLTPro-Medium.otf */; };
-		6D85D2B527C3A07100220F5D /* Linotype - DINNextLTPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A727C3A07000220F5D /* Linotype - DINNextLTPro-Bold.otf */; };
-		6D85D2B627C3A07100220F5D /* Linotype - DINNextLTPro-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A827C3A07000220F5D /* Linotype - DINNextLTPro-HeavyItalic.otf */; };
-		6D85D2B727C3A07100220F5D /* Linotype - DINNextLTPro-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A927C3A07100220F5D /* Linotype - DINNextLTPro-BlackItalic.otf */; };
-		6D85D2B827C3A07100220F5D /* Linotype - DINNextLTPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2AA27C3A07100220F5D /* Linotype - DINNextLTPro-Regular.otf */; };
-		6D85D2B927C3A07100220F5D /* Linotype - DINNextLTPro-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2AB27C3A07100220F5D /* Linotype - DINNextLTPro-LightItalic.otf */; };
-		6D85D2BA27C3A07100220F5D /* Linotype - DINNextLTPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2AC27C3A07100220F5D /* Linotype - DINNextLTPro-Light.otf */; };
-		6DD8E87927E8D04D00981050 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD8E87827E8D04D00981050 /* CustomActivityIndicator.swift */; };
-		A9A7C756227E1D6200F2CC59 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A9A7C755227E1D6200F2CC59 /* README.md */; };
+		8166E19A2D6C0CDA004A34E5 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F0B2AA63D7500C1A2F7 /* SeparatorView.swift */; };
+		8166E19B2D6C0CDA004A34E5 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F112AA63D7500C1A2F7 /* DeviceView.swift */; };
+		8166E19C2D6C0CDA004A34E5 /* QorvoDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E19862606CD0000837A4A /* QorvoDemoViewController.swift */; };
+		8166E19D2D6C0CDA004A34E5 /* QorvoColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4892392ABC5244009302B7 /* QorvoColors.swift */; };
+		8166E19E2D6C0CDA004A34E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012C3067226FD13B00BADEF9 /* AppDelegate.swift */; };
+		8166E19F2D6C0CDA004A34E5 /* BluetoothLECentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F252AA649EC00C1A2F7 /* BluetoothLECentral.swift */; };
+		8166E1A02D6C0CDA004A34E5 /* CustomActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DD8E87827E8D04D00981050 /* CustomActivityIndicator.swift */; };
+		8166E1A12D6C0CDA004A34E5 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3B18062B32EFC600FB54EE /* NotificationManager.swift */; };
+		8166E1A22D6C0CDA004A34E5 /* AccessoriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F072AA63D4100C1A2F7 /* AccessoriesTable.swift */; };
+		8166E1A32D6C0CDA004A34E5 /* SingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D1B0F062AA63D4100C1A2F7 /* SingleCell.swift */; };
+		8166E1A42D6C0CDA004A34E5 /* QorvoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48923D2ABCA99F009302B7 /* QorvoFonts.swift */; };
+		8166E1A52D6C0CDA004A34E5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D85D29D27BFB37800220F5D /* SettingsViewController.swift */; };
+		8166E1A62D6C0CDA004A34E5 /* DesignConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48923F2ABCE902009302B7 /* DesignConstraints.swift */; };
+		8166E1A82D6C0CDA004A34E5 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 8166E1972D6C0CDA004A34E5 /* FirebaseCrashlytics */; };
+		8166E1A92D6C0CDA004A34E5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E198A2606CE5000837A4A /* CoreBluetooth.framework */; };
+		8166E1AA2D6C0CDA004A34E5 /* NearbyInteraction.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A5E19882606CE4B00837A4A /* NearbyInteraction.framework */; };
+		8166E1AC2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A027C3A07000220F5D /* Linotype - DINNextLTPro-Italic.otf */; };
+		8166E1AD2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2AA27C3A07100220F5D /* Linotype - DINNextLTPro-Regular.otf */; };
+		8166E1AE2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D29F27C3A07000220F5D /* Linotype - DINNextLTPro-MediumItalic.otf */; };
+		8166E1AF2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-UltraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A427C3A07000220F5D /* Linotype - DINNextLTPro-UltraLight.otf */; };
+		8166E1B02D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A627C3A07000220F5D /* Linotype - DINNextLTPro-Medium.otf */; };
+		8166E1B12D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A127C3A07000220F5D /* Linotype - DINNextLTPro-Heavy.otf */; };
+		8166E1B22D6C0CDA004A34E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C3070226FD13B00BADEF9 /* LaunchScreen.storyboard */; };
+		8166E1B32D6C0CDA004A34E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 012C306E226FD13B00BADEF9 /* Assets.xcassets */; };
+		8166E1B42D6C0CDA004A34E5 /* Linotype - DINNextLTPro-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A227C3A07000220F5D /* Linotype - DINNextLTPro-BoldItalic.otf */; };
+		8166E1B52D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A727C3A07000220F5D /* Linotype - DINNextLTPro-Bold.otf */; };
+		8166E1B62D6C0CDA004A34E5 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5A2E7BF529A8EE970050844E /* Localizable.strings */; };
+		8166E1B72D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2AC27C3A07100220F5D /* Linotype - DINNextLTPro-Light.otf */; };
+		8166E1B82D6C0CDA004A34E5 /* Linotype - DINNextLTPro-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A827C3A07000220F5D /* Linotype - DINNextLTPro-HeavyItalic.otf */; };
+		8166E1B92D6C0CDA004A34E5 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 6D84C9FA27875507003E3FFC /* assets */; };
+		8166E1BA2D6C0CDA004A34E5 /* 3d_arrow.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6D7A16BA27E2521D00C53B39 /* 3d_arrow.usdz */; };
+		8166E1BB2D6C0CDA004A34E5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A9A7C755227E1D6200F2CC59 /* README.md */; };
+		8166E1BC2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A327C3A07000220F5D /* Linotype - DINNextLTPro-Black.otf */; };
+		8166E1BD2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-UltraLightIt.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A527C3A07000220F5D /* Linotype - DINNextLTPro-UltraLightIt.otf */; };
+		8166E1BE2D6C0CDA004A34E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 012C306B226FD13B00BADEF9 /* Main.storyboard */; };
+		8166E1BF2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2AB27C3A07100220F5D /* Linotype - DINNextLTPro-LightItalic.otf */; };
+		8166E1C02D6C0CDA004A34E5 /* Linotype - DINNextLTPro-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D2A927C3A07100220F5D /* Linotype - DINNextLTPro-BlackItalic.otf */; };
+		8166E1C12D6C0CDA004A34E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A0BC7FB2A8FBDE80044AF01 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		012C3064226FD13B00BADEF9 /* Qorvo NI Background.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Qorvo NI Background.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		012C3067226FD13B00BADEF9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		012C306C226FD13B00BADEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		012C306E226FD13B00BADEF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,17 +85,18 @@
 		6D85D2AB27C3A07100220F5D /* Linotype - DINNextLTPro-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Linotype - DINNextLTPro-LightItalic.otf"; sourceTree = "<group>"; };
 		6D85D2AC27C3A07100220F5D /* Linotype - DINNextLTPro-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Linotype - DINNextLTPro-Light.otf"; sourceTree = "<group>"; };
 		6DD8E87827E8D04D00981050 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
+		81C3BC982D6C18390088335D /* ShutEye App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "ShutEye App.app"; path = "/Users/pranav/Documents/GitHub/CSE147_Final_Project/iOS/ShutEye App/build/Debug-iphoneos/ShutEye App.app"; sourceTree = "<absolute>"; };
 		A9A7C755227E1D6200F2CC59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		012C3061226FD13B00BADEF9 /* Frameworks */ = {
+		8166E1A72D6C0CDA004A34E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A0BC7FA2A8FBD5A0044AF01 /* FirebaseCrashlytics in Frameworks */,
-				3A5E198B2606CE5000837A4A /* CoreBluetooth.framework in Frameworks */,
-				3A5E19892606CE4B00837A4A /* NearbyInteraction.framework in Frameworks */,
+				8166E1A82D6C0CDA004A34E5 /* FirebaseCrashlytics in Frameworks */,
+				8166E1A92D6C0CDA004A34E5 /* CoreBluetooth.framework in Frameworks */,
+				8166E1AA2D6C0CDA004A34E5 /* NearbyInteraction.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				A9A7C755227E1D6200F2CC59 /* README.md */,
-				012C3066226FD13B00BADEF9 /* QorvoAccessorySample */,
+				012C3066226FD13B00BADEF9 /* ShutEye App */,
 				012C3065226FD13B00BADEF9 /* Products */,
 				A9FCEFA62293634C008CC0CF /* Frameworks */,
 				D0887E186C8C54F49A98DFAD /* Configuration */,
@@ -117,12 +117,11 @@
 		012C3065226FD13B00BADEF9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				012C3064226FD13B00BADEF9 /* Qorvo NI Background.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		012C3066226FD13B00BADEF9 /* QorvoAccessorySample */ = {
+		012C3066226FD13B00BADEF9 /* ShutEye App */ = {
 			isa = PBXGroup;
 			children = (
 				6D1B0F052AA63D4100C1A2F7 /* AccessoriesTable */,
@@ -144,7 +143,7 @@
 				5A2E7BF529A8EE970050844E /* Localizable.strings */,
 				5A0BC7FB2A8FBDE80044AF01 /* GoogleService-Info.plist */,
 			);
-			path = QorvoAccessorySample;
+			path = "ShutEye App";
 			sourceTree = "<group>";
 		};
 		07C9B5FB2685F50E00951A68 /* models */ = {
@@ -247,25 +246,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		012C3063226FD13B00BADEF9 /* Qorvo NI Background */ = {
+		8166E1962D6C0CDA004A34E5 /* ShutEye App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 012C3076226FD13B00BADEF9 /* Build configuration list for PBXNativeTarget "Qorvo NI Background" */;
+			buildConfigurationList = 8166E1C32D6C0CDA004A34E5 /* Build configuration list for PBXNativeTarget "ShutEye App" */;
 			buildPhases = (
-				012C3060226FD13B00BADEF9 /* Sources */,
-				012C3061226FD13B00BADEF9 /* Frameworks */,
-				012C3062226FD13B00BADEF9 /* Resources */,
-				5A0BC7FD2A8FC0510044AF01 /* ShellScript */,
+				8166E1992D6C0CDA004A34E5 /* Sources */,
+				8166E1A72D6C0CDA004A34E5 /* Frameworks */,
+				8166E1AB2D6C0CDA004A34E5 /* Resources */,
+				8166E1C22D6C0CDA004A34E5 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Qorvo NI Background";
+			name = "ShutEye App";
 			packageProductDependencies = (
-				5A0BC7F92A8FBD5A0044AF01 /* FirebaseCrashlytics */,
+				8166E1972D6C0CDA004A34E5 /* FirebaseCrashlytics */,
 			);
 			productName = BTLETransfer;
-			productReference = 012C3064226FD13B00BADEF9 /* Qorvo NI Background.app */;
+			productReference = 81C3BC982D6C18390088335D /* ShutEye App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -276,16 +275,10 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1620;
 				ORGANIZATIONNAME = Apple;
-				TargetAttributes = {
-					012C3063226FD13B00BADEF9 = {
-						CreatedOnToolsVersion = 10.1;
-						LastSwiftMigration = 1110;
-					};
-				};
 			};
-			buildConfigurationList = 012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "QorvoAccessorySample" */;
+			buildConfigurationList = 012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "ShutEye App" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -301,45 +294,45 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				012C3063226FD13B00BADEF9 /* Qorvo NI Background */,
+				8166E1962D6C0CDA004A34E5 /* ShutEye App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		012C3062226FD13B00BADEF9 /* Resources */ = {
+		8166E1AB2D6C0CDA004A34E5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D85D2AE27C3A07100220F5D /* Linotype - DINNextLTPro-Italic.otf in Resources */,
-				6D85D2B827C3A07100220F5D /* Linotype - DINNextLTPro-Regular.otf in Resources */,
-				6D85D2AD27C3A07100220F5D /* Linotype - DINNextLTPro-MediumItalic.otf in Resources */,
-				6D85D2B227C3A07100220F5D /* Linotype - DINNextLTPro-UltraLight.otf in Resources */,
-				6D85D2B427C3A07100220F5D /* Linotype - DINNextLTPro-Medium.otf in Resources */,
-				6D85D2AF27C3A07100220F5D /* Linotype - DINNextLTPro-Heavy.otf in Resources */,
-				012C3072226FD13B00BADEF9 /* LaunchScreen.storyboard in Resources */,
-				012C306F226FD13B00BADEF9 /* Assets.xcassets in Resources */,
-				6D85D2B027C3A07100220F5D /* Linotype - DINNextLTPro-BoldItalic.otf in Resources */,
-				6D85D2B527C3A07100220F5D /* Linotype - DINNextLTPro-Bold.otf in Resources */,
-				5A2E7BF629A8EE970050844E /* Localizable.strings in Resources */,
-				6D85D2BA27C3A07100220F5D /* Linotype - DINNextLTPro-Light.otf in Resources */,
-				6D85D2B627C3A07100220F5D /* Linotype - DINNextLTPro-HeavyItalic.otf in Resources */,
-				6D84C9FB27875507003E3FFC /* assets in Resources */,
-				6D7A16BB27E2521D00C53B39 /* 3d_arrow.usdz in Resources */,
-				A9A7C756227E1D6200F2CC59 /* README.md in Resources */,
-				6D85D2B127C3A07100220F5D /* Linotype - DINNextLTPro-Black.otf in Resources */,
-				6D85D2B327C3A07100220F5D /* Linotype - DINNextLTPro-UltraLightIt.otf in Resources */,
-				012C306D226FD13B00BADEF9 /* Main.storyboard in Resources */,
-				6D85D2B927C3A07100220F5D /* Linotype - DINNextLTPro-LightItalic.otf in Resources */,
-				6D85D2B727C3A07100220F5D /* Linotype - DINNextLTPro-BlackItalic.otf in Resources */,
-				5A0BC7FC2A8FBDE80044AF01 /* GoogleService-Info.plist in Resources */,
+				8166E1AC2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Italic.otf in Resources */,
+				8166E1AD2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Regular.otf in Resources */,
+				8166E1AE2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-MediumItalic.otf in Resources */,
+				8166E1AF2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-UltraLight.otf in Resources */,
+				8166E1B02D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Medium.otf in Resources */,
+				8166E1B12D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Heavy.otf in Resources */,
+				8166E1B22D6C0CDA004A34E5 /* LaunchScreen.storyboard in Resources */,
+				8166E1B32D6C0CDA004A34E5 /* Assets.xcassets in Resources */,
+				8166E1B42D6C0CDA004A34E5 /* Linotype - DINNextLTPro-BoldItalic.otf in Resources */,
+				8166E1B52D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Bold.otf in Resources */,
+				8166E1B62D6C0CDA004A34E5 /* Localizable.strings in Resources */,
+				8166E1B72D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Light.otf in Resources */,
+				8166E1B82D6C0CDA004A34E5 /* Linotype - DINNextLTPro-HeavyItalic.otf in Resources */,
+				8166E1B92D6C0CDA004A34E5 /* assets in Resources */,
+				8166E1BA2D6C0CDA004A34E5 /* 3d_arrow.usdz in Resources */,
+				8166E1BB2D6C0CDA004A34E5 /* README.md in Resources */,
+				8166E1BC2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-Black.otf in Resources */,
+				8166E1BD2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-UltraLightIt.otf in Resources */,
+				8166E1BE2D6C0CDA004A34E5 /* Main.storyboard in Resources */,
+				8166E1BF2D6C0CDA004A34E5 /* Linotype - DINNextLTPro-LightItalic.otf in Resources */,
+				8166E1C02D6C0CDA004A34E5 /* Linotype - DINNextLTPro-BlackItalic.otf in Resources */,
+				8166E1C12D6C0CDA004A34E5 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5A0BC7FD2A8FC0510044AF01 /* ShellScript */ = {
+		8166E1C22D6C0CDA004A34E5 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -364,23 +357,23 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		012C3060226FD13B00BADEF9 /* Sources */ = {
+		8166E1992D6C0CDA004A34E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D1B0F192AA63D7600C1A2F7 /* SeparatorView.swift in Sources */,
-				6D1B0F1C2AA63D7600C1A2F7 /* DeviceView.swift in Sources */,
-				3A5E19872606CD0000837A4A /* QorvoDemoViewController.swift in Sources */,
-				6D48923A2ABC5244009302B7 /* QorvoColors.swift in Sources */,
-				012C3068226FD13B00BADEF9 /* AppDelegate.swift in Sources */,
-				6D1B0F262AA649EC00C1A2F7 /* BluetoothLECentral.swift in Sources */,
-				6DD8E87927E8D04D00981050 /* CustomActivityIndicator.swift in Sources */,
-				6D3B18072B32EFC600FB54EE /* NotificationManager.swift in Sources */,
-				6D1B0F092AA63D4100C1A2F7 /* AccessoriesTable.swift in Sources */,
-				6D1B0F082AA63D4100C1A2F7 /* SingleCell.swift in Sources */,
-				6D48923E2ABCA99F009302B7 /* QorvoFonts.swift in Sources */,
-				6D85D29E27BFB37800220F5D /* SettingsViewController.swift in Sources */,
-				6D4892402ABCE902009302B7 /* DesignConstraints.swift in Sources */,
+				8166E19A2D6C0CDA004A34E5 /* SeparatorView.swift in Sources */,
+				8166E19B2D6C0CDA004A34E5 /* DeviceView.swift in Sources */,
+				8166E19C2D6C0CDA004A34E5 /* QorvoDemoViewController.swift in Sources */,
+				8166E19D2D6C0CDA004A34E5 /* QorvoColors.swift in Sources */,
+				8166E19E2D6C0CDA004A34E5 /* AppDelegate.swift in Sources */,
+				8166E19F2D6C0CDA004A34E5 /* BluetoothLECentral.swift in Sources */,
+				8166E1A02D6C0CDA004A34E5 /* CustomActivityIndicator.swift in Sources */,
+				8166E1A12D6C0CDA004A34E5 /* NotificationManager.swift in Sources */,
+				8166E1A22D6C0CDA004A34E5 /* AccessoriesTable.swift in Sources */,
+				8166E1A32D6C0CDA004A34E5 /* SingleCell.swift in Sources */,
+				8166E1A42D6C0CDA004A34E5 /* QorvoFonts.swift in Sources */,
+				8166E1A52D6C0CDA004A34E5 /* SettingsViewController.swift in Sources */,
+				8166E1A62D6C0CDA004A34E5 /* DesignConstraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +452,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"INFOPLIST_FILE[sdk=*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -516,6 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"INFOPLIST_FILE[sdk=*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -526,16 +521,16 @@
 			};
 			name = Release;
 		};
-		012C3077226FD13B00BADEF9 /* Debug */ = {
+		8166E1C42D6C0CDA004A34E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = QorvoAccessorySample/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Qorvo NI Background";
+				DEVELOPMENT_TEAM = 2G53B3PBB7;
+				INFOPLIST_FILE = "ShutEye App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ShutEye;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -543,8 +538,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = none;
-				PRODUCT_NAME = "Qorvo NI Background";
+				PRODUCT_BUNDLE_IDENTIFIER = com.daphysikist.ShutEye;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -554,15 +549,15 @@
 			};
 			name = Debug;
 		};
-		012C3078226FD13B00BADEF9 /* Release */ = {
+		8166E1C52D6C0CDA004A34E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = QorvoAccessorySample/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Qorvo NI Background";
+				DEVELOPMENT_TEAM = 2G53B3PBB7;
+				INFOPLIST_FILE = "ShutEye App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = ShutEye;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -570,8 +565,8 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = none;
-				PRODUCT_NAME = "Qorvo NI Background";
+				PRODUCT_BUNDLE_IDENTIFIER = com.daphysikist.ShutEye;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -584,7 +579,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "QorvoAccessorySample" */ = {
+		012C305F226FD13B00BADEF9 /* Build configuration list for PBXProject "ShutEye App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				012C3074226FD13B00BADEF9 /* Debug */,
@@ -593,11 +588,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		012C3076226FD13B00BADEF9 /* Build configuration list for PBXNativeTarget "Qorvo NI Background" */ = {
+		8166E1C32D6C0CDA004A34E5 /* Build configuration list for PBXNativeTarget "ShutEye App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				012C3077226FD13B00BADEF9 /* Debug */,
-				012C3078226FD13B00BADEF9 /* Release */,
+				8166E1C42D6C0CDA004A34E5 /* Debug */,
+				8166E1C52D6C0CDA004A34E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -613,12 +608,20 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		8166E1982D6C0CDA004A34E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5A0BC7F92A8FBD5A0044AF01 /* FirebaseCrashlytics */ = {
+		8166E1972D6C0CDA004A34E5 /* FirebaseCrashlytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5A0BC7F82A8FBD590044AF01 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 8166E1982D6C0CDA004A34E5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
 		};
 /* End XCSwiftPackageProductDependency section */
