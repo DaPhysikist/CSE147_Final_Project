@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1620"
-   version = "2.2">
+   LastUpgradeVersion = "1500"
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES"
-      buildArchitectures = "Automatic">
+      buildImplicitDependencies = "YES">
       <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <AutocreatedTestPlanReference>
-            </AutocreatedTestPlanReference>
-         </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
@@ -24,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8166E1962D6C0CDA004A34E5"
-               BuildableName = "ShutEye App.app"
+               BlueprintIdentifier = "012C3063226FD13B00BADEF9"
+               BuildableName = "Qorvo NI Background.app"
                BlueprintName = "ShutEye App"
                ReferencedContainer = "container:ShutEye App.xcodeproj">
             </BuildableReference>
@@ -53,8 +43,8 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8166E1962D6C0CDA004A34E5"
-            BuildableName = "ShutEye App.app"
+            BlueprintIdentifier = "012C3063226FD13B00BADEF9"
+            BuildableName = "Qorvo NI Background.app"
             BlueprintName = "ShutEye App"
             ReferencedContainer = "container:ShutEye App.xcodeproj">
          </BuildableReference>
@@ -66,15 +56,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8166E1962D6C0CDA004A34E5"
-            BuildableName = "ShutEye App.app"
+            BlueprintIdentifier = "012C3063226FD13B00BADEF9"
+            BuildableName = "Qorvo NI Background.app"
             BlueprintName = "ShutEye App"
             ReferencedContainer = "container:ShutEye App.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

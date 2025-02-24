@@ -21,7 +21,7 @@
         <!--Qorvo Demo View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="QorvoDemoViewController" customModule="Qorvo_NI_Background_copy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="QorvoDemoViewController" customModule="Qorvo_NI_Background" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -82,7 +82,7 @@
         <!--Settings View Controller-->
         <scene sceneID="iuU-AA-kAf">
             <objects>
-                <viewController id="a4S-cE-Lb9" userLabel="Settings View Controller" customClass="SettingsViewController" customModule="Qorvo_NI_Background_copy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="a4S-cE-Lb9" userLabel="Settings View Controller" customClass="SettingsViewController" customModule="Qorvo_NI_Background" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xAz-bH-XTy">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
