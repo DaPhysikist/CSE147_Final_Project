@@ -64,6 +64,7 @@
 #include "util.h"
 #include "fira_niq.h"
 #include "HAL_uwb.h"
+#include "HAL_uart.h"
 #include "EventManager.h"
 #include "common_fira.h"
 
@@ -283,6 +284,11 @@ static void report_cb(const struct ranging_results *results, void *user_data) {
   }
 
   len += snprintf(&str_result->str[len], str_result->len - len, "}\r\n");
+
+  char distance_message[50];  
+  sprintf(distance_message, "Distance is %d mm!\r\n", rm->distance_mm);
+  deca_uart_transmit((uint8_t *)distance_message, strlen(distance_message));
+
   reporter_instance.print((char*)str_result->str, len);
 }
 

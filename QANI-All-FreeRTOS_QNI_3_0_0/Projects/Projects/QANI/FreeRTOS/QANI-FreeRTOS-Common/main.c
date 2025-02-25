@@ -67,6 +67,7 @@
 #include "util.h"
 
 #include "HAL_uwb.h"
+#include "HAL_uart.h"
 #include "deca_dbg.h"
 #include "niq.h"
 #include "thisBoard.h"
@@ -130,6 +131,8 @@ int main(void) {
 #if NRF_LOG_ENABLED
     init_logger_thread();
 #endif
+
+    deca_uart_init();
 
     // Accessory Nearby Interaction Initialization
     niq_init(ResumeUwbTasks, StopUwbTask, (const void *)nrf_crypto_init,

@@ -60,7 +60,7 @@
 #include "HAL_timer.h"
 #include "HAL_uart.h"
 
-extern void NotifyControlTask(void);
+//extern void NotifyControlTask(void);
 
 /******************************************************************************
  *
@@ -208,7 +208,7 @@ void deca_uart_receive(void)
         {
             /* USB RX packet can not fit free space in the buffer */
         }
-        NotifyControlTask();
+        //NotifyControlTask();
     }
 }
 
