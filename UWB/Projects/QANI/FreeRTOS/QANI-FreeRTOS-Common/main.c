@@ -132,7 +132,7 @@ int main(void) {
     init_logger_thread();
 #endif
 
-    deca_uart_init();
+    deca_uart_init();  //Inititalize UART
 
     // Accessory Nearby Interaction Initialization
     niq_init(ResumeUwbTasks, StopUwbTask, (const void *)nrf_crypto_init,

@@ -287,7 +287,7 @@ static void report_cb(const struct ranging_results *results, void *user_data) {
 
   char distance_message[50];  
   sprintf(distance_message, "Distance is %d mm!\r\n", rm->distance_mm);
-  deca_uart_transmit((uint8_t *)distance_message, strlen(distance_message));
+  deca_uart_transmit((uint8_t *)distance_message, strlen(distance_message));  //Sends UART message to ESP32
 
   reporter_instance.print((char*)str_result->str, len);
 }
