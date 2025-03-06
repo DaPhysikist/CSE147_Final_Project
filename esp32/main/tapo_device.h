@@ -50,20 +50,20 @@ public:
 
     void update() { // needs to be called in main loop to progress commands
         if (commandActive) {
-            Serial.print("TAPO_DEVICE: Command active: "); 
-            Serial.print(currCommand.command);
-            Serial.print(" Expected state: ");
-            Serial.print(currCommand.expected_state);
-            Serial.print("Response: ");
-            Serial.print(currCommand.response);
-            Serial.print("Send retries: ");
-            Serial.print(currCommand.send_retries);
-            Serial.print("Reconnect retries: ");
-            Serial.print(currCommand.reconnect_retries);
-            Serial.print("Last retry time: ");
-            Serial.print(currCommand.last_retry_time);
-            Serial.print("Priority: ");
-            Serial.println(currCommand.priority);
+            //Serial.print("TAPO_DEVICE: Command active: "); 
+            //Serial.print(currCommand.command);
+            //Serial.print(" Expected state: ");
+            //Serial.print(currCommand.expected_state);
+            //Serial.print("Response: ");
+            //Serial.print(currCommand.response);
+            //Serial.print("Send retries: ");
+            //Serial.print(currCommand.send_retries);
+            //Serial.print("Reconnect retries: ");
+            //Serial.print(currCommand.reconnect_retries);
+            //Serial.print("Last retry time: ");
+            //Serial.print(currCommand.last_retry_time);
+            //Serial.print("Priority: ");
+            //Serial.println(currCommand.priority);
 
             if (millis() - currCommand.last_retry_time > retryDelay) {
                 if (currCommand.send_retries > 0) { //try sending multiple requests
