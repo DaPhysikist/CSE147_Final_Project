@@ -48,7 +48,8 @@ private:
 
 public:
 
-    void update() { // needs to be called in main loop to progress commands
+    // 0 = no command, 1 = completed successfully, 2 = command in progress, 3 = failed
+    int update() { // needs to be called in main loop to progress commands
         if (commandActive) {
             //Serial.print("TAPO_DEVICE: Command active: "); 
             //Serial.print(currCommand.command);
@@ -73,8 +74,10 @@ public:
                     if (currCommand.expected_state == "" || check_state(currCommand.expected_state)) { 
                         commandActive = false;
                         currCommand.gotResponse = 1;
+                        return 1; // completed successfully
                     } else {
                         //Serial.println("TAPO_DEVICE: Command failed, retrying...");
+                        return 2; // command in progress
                     }
                 } else { // if all requests fail, try reconnecting
                     if (currCommand.reconnect_retries > 0) {
@@ -84,13 +87,19 @@ public:
                         //Serial.println("TAPO_DEVICE: Command failed, rehandshaking done");
                         currCommand.last_retry_time = millis();
                         currCommand.send_retries = TAPO_MAX_SEND_RETRIES; // reset the number of send retries after reconnecting
+                        return 2; // command in progress
                     } else {
                         //Serial.println("TAPO_DEVICE: Command failed, giving up...");
                         commandActive = false;
+                        return 3; // failed
                     }
                 }
             }
+            else {
+                return 2; // command in progress
+            }
         } else {
+            return 0; // no command
             //Serial.println("TAPO_DEVICE: Command inactive");
         }
     }
