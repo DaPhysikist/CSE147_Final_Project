@@ -50,6 +50,7 @@
 
 #include "boards.h"
 #include "HAL_SPI.h"
+#include "HAL_uart.h"
 #include "HAL_uwb.h"
 
 static const spi_port_config_t dw3000_spi_io_cfg = 

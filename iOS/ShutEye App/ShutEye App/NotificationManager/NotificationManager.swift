@@ -25,14 +25,14 @@ class NotificationManager {
     func setNotification(deviceName: String, deviceMessage: String) {
         let content = UNMutableNotificationContent()
         
-        content.title = "Qorvo Device \(deviceName)"
+        content.title = "ShutEye Device \(deviceName)"
         content.subtitle = "\(deviceMessage)"
         content.sound = .default
         
         //let trigger = UNNotificationTrigger
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
         
-        let request = UNNotificationRequest(identifier: "Qorvo NI Background",
+        let request = UNNotificationRequest(identifier: "ShutEye",
                                             content: content,
                                             trigger: trigger)
         
