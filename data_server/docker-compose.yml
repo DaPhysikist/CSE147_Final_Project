@@ -1,0 +1,32 @@
+# services
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+# web:
+#     build: .
+#     ports:
+#       - "8000:8000"
+#     volumes:
+#       - ./server:/server
+#     depends_on:
+#       - mysql
+#     restart: always
+#     environment:
+#       - DB_HOST=mysql
+#       - DB_USER=${MYSQL_USER}
+#       - DB_PASSWORD=${MYSQL_PASSWORD}
+#       - DB_NAME=${MYSQL_DATABASE}
+
+volumes:
+  mysql_data: 
