@@ -20,18 +20,13 @@ app = FastAPI()
 def get_html() -> HTMLResponse:                 
   with open('index.html') as html:             
     return HTMLResponse(content=html.read())
-  
-# @app.get("/dashboard", response_class=HTMLResponse)       #returns the dashboard HTML page when dashboard is specified for the URL path
-# def get_dashboard() -> HTMLResponse:
-#   with open('dashboard.html') as html:          
-#     return HTMLResponse(content=html.read())
 
 @app.get("/shuteye_historical_data/{appliance_name}", response_class=JSONResponse)
 def fetch_historical_data(appliance_name: str) -> JSONResponse:
     try:
         db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
         cursor = db.cursor()
-        query = "SELECT * FROM ShutEyeDeviceEnergyDataHistorical WHERE appliance_name = %s ORDER BY local_time DESC;"
+        query = "SELECT * FROM ShutEyeDeviceEnergyDataHistorical WHERE appliance_name = %s ORDER BY local_time DESC LIMIT 1;"
         value = (appliance_name,)
         cursor.execute(query, value)
         records = cursor.fetchall()
@@ -79,84 +74,36 @@ def fetch_periodic_measurement_data(appliance_name: str) -> JSONResponse:
         return JSONResponse(status_code=500, content={"error": f"Database error: {err}"})
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
+    
+@app.put("/shuteye_historical_data")      #insert historical data into the database
+def insert_historical_data(appliance_historical_data: dict):
+  db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
+  cursor = db.cursor()
+  query = "insert into ShutEyeDeviceEnergyDataHistorical(appliance_name, local_time, today_runtime, month_runtime, today_energy, month_energy) values (%s, %s, %s, %s, %s, %s)"
+  value = (appliance_historical_data['appliance_name'], appliance_historical_data['local_time'], appliance_historical_data['today_runtime'], appliance_historical_data['month_runtime'], appliance_historical_data['today_energy'], appliance_historical_data['month_energy'])
+  try:
+    cursor.execute(query, value)
+  except mysql.Error as err:
+      return JSONResponse(status_code=500, content={"error": f"Database error: {err}"})
+  except Exception as e:
+      return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
+  db.commit()
+  db.close()
 
-
-# @app.get("/shuteye_periodic_measurement_data", response_class=JSONResponse)
-# def fetch_periodic_measurement_data() -> JSONResponse:
-#   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
-#   cursor = db.cursor()
-#   cursor.execute("select * from ShutEyeDeviceEnergyDataPeriodicMeasurement;")
-#   records = cursor.fetchall()
-#   db.close()
-#   response = {}
-#   for index, row in enumerate(records):    #iterates through the database data to construct the dict
-#     response[index] = {
-#       "id": row[0],
-#       "first_name": row[1],
-#       "last_name": row[2],
-#       "summary": row[3],
-#       "jtbd": row[4],
-#       "competitors": row[5],
-#       "price": float(row[6]),
-#       "cost": float(row[7])
-#     }
-#   return JSONResponse(response)    
-  
-# @app.post("/idea/{idea_id}")       #modifies an idea in the database
-# def modify_idea(idea_id: str, parameters: dict):
-#   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
-#   cursor = db.cursor()
-#   field = parameters['field']
-#   set_val = parameters['set_val']
-#   if field == 'first_name':                                   #update the value of the selected field
-#       query = "update Ideas set first_name=%s WHERE id=%s;"
-#   elif field == 'last_name':
-#       query = "update Ideas set last_name=%s WHERE id=%s;"
-#   elif field == 'summary':
-#       query = "update Ideas set summary=%s WHERE id=%s;"
-#   elif field == 'jtbd':
-#       query = "update Ideas set jtbd=%s WHERE id=%s;"
-#   elif field == 'competitors':
-#       query = "update Ideas set competitors=%s WHERE id=%s;"
-#   elif field == 'price':
-#       query = "update Ideas set price=%s WHERE id=%s;"
-#   elif field == 'cost':
-#       query = "update Ideas set cost=%s WHERE id=%s;"
-#   else:
-#      return
-#   value = (set_val, idea_id)
-#   try:
-#     cursor.execute(query, value)
-#   except RuntimeError as err:
-#     print("runtime error: {0}".format(err))
-#   db.commit()
-#   db.close()
-
-# @app.delete("/deleteidea/{idea_id}") #deletes an idea from the database
-# def delete_idea(idea_id: str):
-#   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
-#   cursor = db.cursor()
-#   query = "delete from Ideas where id = %s;"
-#   value = (idea_id,)
-#   try:
-#     cursor.execute(query, value)
-#   except RuntimeError as err:
-#     print("runtime error: {0}".format(err))
-#   db.commit()
-#   db.close()
-
-# @app.put("/addidea")       #adds an idea in the database
-# def add_idea(idea_data: dict):
-#   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
-#   cursor = db.cursor()
-#   query = "insert into Ideas(first_name, last_name, summary, jtbd, competitors, price, cost) values (%s, %s, %s, %s, %s, %s, %s)"
-#   value = (idea_data['first_name'], idea_data['last_name'], idea_data['summary'], idea_data['jtbd'], idea_data['competitors'], idea_data['price'], idea_data['cost'])  #uses dict passed in to PUT to set values of fields
-#   try:
-#     cursor.execute(query, value)
-#   except RuntimeError as err:
-#     print("runtime error: {0}".format(err))
-#   db.commit()
-#   db.close()
+@app.put("/shuteye_periodic_measurement_data")    #insert periodic measurement data into the database
+def insert_periodic_measurement_data(appliance_periodic_data: dict):
+  db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
+  cursor = db.cursor()
+  query = "insert into ShutEyeDeviceEnergyDataPeriodicMeasurement(appliance_name, local_time, current_power, distance_ultrasonic, distance_bluetooth, distance_ultrawideband, user_presence_detected) values (%s, %s, %s, %s, %s, %s, %s)"
+  value = (appliance_periodic_data['appliance_name'], appliance_periodic_data['local_time'], appliance_periodic_data['current_power'], appliance_periodic_data['distance_ultrasonic'], appliance_periodic_data['distance_bluetooth'], appliance_periodic_data['distance_ultrawideband'], appliance_periodic_data['user_presence_detected'])
+  try:
+    cursor.execute(query, value)
+  except mysql.Error as err:
+      return JSONResponse(status_code=500, content={"error": f"Database error: {err}"})
+  except Exception as e:
+      return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
+  db.commit()
+  db.close()
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=6543)
