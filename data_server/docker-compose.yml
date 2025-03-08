@@ -1,6 +1,3 @@
-# version
-version: '3.0'
-
 # services
 services:
   db:
@@ -16,20 +13,20 @@ services:
     volumes:
       - ./mysql-data:/var/lib/mysql
 
-web:
-    build: .
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./server:/server
-    depends_on:
-      - mysql
-    restart: always
-    environment:
-      - DB_HOST=mysql
-      - DB_USER=${MYSQL_USER}
-      - DB_PASSWORD=${MYSQL_PASSWORD}
-      - DB_NAME=${MYSQL_DATABASE}
+# web:
+#     build: .
+#     ports:
+#       - "8000:8000"
+#     volumes:
+#       - ./server:/server
+#     depends_on:
+#       - mysql
+#     restart: always
+#     environment:
+#       - DB_HOST=mysql
+#       - DB_USER=${MYSQL_USER}
+#       - DB_PASSWORD=${MYSQL_PASSWORD}
+#       - DB_NAME=${MYSQL_DATABASE}
 
 volumes:
   mysql_data: 

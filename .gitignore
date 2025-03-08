@@ -1,3 +1,4 @@
 .env
 .bin
 UWB/Projects/QANI/FreeRTOS/nRF52840DK/ses/Output/
+data_server/.venv/
