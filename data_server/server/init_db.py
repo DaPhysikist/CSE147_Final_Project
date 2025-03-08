@@ -18,20 +18,34 @@ cursor = db.cursor()
 cursor.execute("CREATE DATABASE if not exists ShutEyeDataServer")  #create database
 cursor.execute("USE ShutEyeDataServer")
 
-cursor.execute("drop table if exists ShutEyeData;")   #creates Ideas table with fields, drops table if it exists already -> used to repopulate table with data when file run again
+cursor.execute("drop table if exists ShutEyeDeviceEnergyDataHistorical;")   #creates Ideas table with fields, drops table if it exists already -> used to repopulate table with data when file run again
 try:
    cursor.execute("""
-   CREATE TABLE ShutEyeData(
-       id          integer  AUTO_INCREMENT PRIMARY KEY,
-       first_name        VARCHAR(50) NOT NULL,
-       last_name        VARCHAR(50) NOT NULL,
-       summary    TEXT NOT NULL,    
-       jtbd       TEXT NOT NULL,
-       competitors       VARCHAR(1000) NOT NULL,
-       price       DECIMAL(12,2) NOT NULL,
-       cost        DECIMAL(12,2) NOT NULL
+   CREATE TABLE ShutEyeData (
+      appliance_name     VARCHAR(50) NOT NULL PRIMARY KEY,
+      local_time         DATETIME NOT NULL,
+      today_runtime      INTEGER NOT NULL,
+      month_runtime      INTEGER NOT NULL,
+      today_energy       INTEGER NOT NULL,
+      month_energy       INTEGER NOT NULL,
    );
- """)
+""")
+except RuntimeError as err:
+   print("runtime error: {0}".format(err))
+
+cursor.execute("drop table if exists ShutEyeCurrentDeviceaData;")   #creates Ideas table with fields, drops table if it exists already -> used to repopulate table with data when file run again
+try:
+   cursor.execute("""
+   CREATE TABLE ShutEyeData (
+       id                 INTEGER AUTO_INCREMENT PRIMARY KEY,
+       appliance_name     VARCHAR(50) NOT NULL,
+       current_power      INTEGER NOT NULL,
+      distance_ultrasonic INTEGER NOT NULL,
+      distance_bluetooth  INTEGER NOT NULL,
+      distance_ultrawideband INTEGER NOT NULL,
+      user_presence_detected BOOLEAN NOT NULL
+   );
+""")
 except RuntimeError as err:
    print("runtime error: {0}".format(err))
 

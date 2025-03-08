@@ -1,10 +1,9 @@
-from fastapi import FastAPI, Request, Form     #imports
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import Response
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.staticfiles import StaticFiles   # Used for serving static files
+from fastapi.staticfiles import StaticFiles
 import uvicorn
 import os
-import json
 import mysql.connector as mysql
 from dotenv import load_dotenv
 
