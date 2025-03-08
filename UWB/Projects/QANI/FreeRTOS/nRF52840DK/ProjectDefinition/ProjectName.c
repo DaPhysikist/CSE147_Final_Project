@@ -49,7 +49,7 @@
  *
  */
 
-const char ProjectName[] = "nRF52840DK - Qorvo Apple Nearby Interaction - FreeRTOS";
+const char ProjectName[] = "ShutEye";
 const char BoardName[] = "nRF52840DK";
 const char OsName[] = "FreeRTOS";
-const char ApplicationName[] = "Nearby Interaction";
+const char ApplicationName[] = "ShutEye App";

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "012C3063226FD13B00BADEF9"
-               BuildableName = "Qorvo NI Background.app"
+               BuildableName = "ShutEye.app"
                BlueprintName = "ShutEye App"
                ReferencedContainer = "container:ShutEye App.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "012C3063226FD13B00BADEF9"
-            BuildableName = "Qorvo NI Background.app"
+            BuildableName = "ShutEye.app"
             BlueprintName = "ShutEye App"
             ReferencedContainer = "container:ShutEye App.xcodeproj">
          </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "012C3063226FD13B00BADEF9"
-            BuildableName = "Qorvo NI Background.app"
+            BuildableName = "ShutEye.app"
             BlueprintName = "ShutEye App"
             ReferencedContainer = "container:ShutEye App.xcodeproj">
          </BuildableReference>
