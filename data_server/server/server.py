@@ -75,7 +75,7 @@ def fetch_periodic_measurement_data(appliance_name: str) -> JSONResponse:
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
     
-@app.put("/shuteye_historical_data")      #insert historical data into the database
+@app.post("/shuteye_historical_data")      #insert historical data into the database
 def insert_historical_data(appliance_historical_data: dict):
   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
   cursor = db.cursor()
@@ -90,7 +90,7 @@ def insert_historical_data(appliance_historical_data: dict):
   db.commit()
   db.close()
 
-@app.put("/shuteye_periodic_measurement_data")    #insert periodic measurement data into the database
+@app.post("/shuteye_periodic_measurement_data")    #insert periodic measurement data into the database
 def insert_periodic_measurement_data(appliance_periodic_data: dict):
   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
   cursor = db.cursor()
