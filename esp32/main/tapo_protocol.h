@@ -14,6 +14,8 @@ class TapoProtocol {
 public:
     void handshake(const String& ip_address, const String& username, const String& password) {        
         this->url = "http://" + ip_address + "/app";
+        //Serial.print("TAPO_PROTOCOL: Connecting to ");
+        //Serial.println(url);
         this->username = username;
         this->password = password;
         
