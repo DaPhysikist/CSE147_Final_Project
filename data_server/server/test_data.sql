@@ -16,5 +16,11 @@ SELECT * FROM ShutEyeDeviceEnergyDataHistorical;
 SELECT * FROM ShutEyeDeviceEnergyDataPeriodicMeasurement;
 
 
-DELETE FROM ShutEyeDeviceEnergyDataHistorical WHERE appliance_name = 'Appliance1';
-DELETE FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = 'Appliance1';
+DELETE FROM ShutEyeDeviceEnergyDataHistorical WHERE appliance_name = 'microwave';
+DELETE FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = 'microwave';
+
+DELETE FROM ShutEyeDeviceEnergyDataHistorical WHERE appliance_name = 'blender';
+DELETE FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = 'blender';
+
+DELETE FROM ShutEyeDeviceEnergyDataHistorical WHERE appliance_name = 'toaster';
+DELETE FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = 'toaster';
