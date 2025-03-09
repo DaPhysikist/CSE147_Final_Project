@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,7 +26,6 @@
 		6D48923A2ABC5244009302B7 /* QorvoColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D4892392ABC5244009302B7 /* QorvoColors.swift */; };
 		6D48923E2ABCA99F009302B7 /* QorvoFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48923D2ABCA99F009302B7 /* QorvoFonts.swift */; };
 		6D4892402ABCE902009302B7 /* DesignConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D48923F2ABCE902009302B7 /* DesignConstraints.swift */; };
-		6D7A16BB27E2521D00C53B39 /* 3d_arrow.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 6D7A16BA27E2521D00C53B39 /* 3d_arrow.usdz */; };
 		6D84C9FB27875507003E3FFC /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 6D84C9FA27875507003E3FFC /* assets */; };
 		6D85D29E27BFB37800220F5D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D85D29D27BFB37800220F5D /* SettingsViewController.swift */; };
 		6D85D2AD27C3A07100220F5D /* Linotype - DINNextLTPro-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6D85D29F27C3A07000220F5D /* Linotype - DINNextLTPro-MediumItalic.otf */; };
@@ -68,7 +67,6 @@
 		6D4892392ABC5244009302B7 /* QorvoColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QorvoColors.swift; sourceTree = "<group>"; };
 		6D48923D2ABCA99F009302B7 /* QorvoFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QorvoFonts.swift; sourceTree = "<group>"; };
 		6D48923F2ABCE902009302B7 /* DesignConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignConstraints.swift; sourceTree = "<group>"; };
-		6D7A16BA27E2521D00C53B39 /* 3d_arrow.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = 3d_arrow.usdz; sourceTree = "<group>"; };
 		6D84C9FA27875507003E3FFC /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = "<group>"; };
 		6D85D29D27BFB37800220F5D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6D85D29F27C3A07000220F5D /* Linotype - DINNextLTPro-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Linotype - DINNextLTPro-MediumItalic.otf"; sourceTree = "<group>"; };
@@ -88,6 +86,10 @@
 		6DD8E87827E8D04D00981050 /* CustomActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomActivityIndicator.swift; sourceTree = "<group>"; };
 		A9A7C755227E1D6200F2CC59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		811DDF142D7CF80E00D86DE3 /* ChartView */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = ChartView; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		012C3061226FD13B00BADEF9 /* Frameworks */ = {
@@ -127,6 +129,7 @@
 			children = (
 				6D1B0F052AA63D4100C1A2F7 /* AccessoriesTable */,
 				6D1B0F242AA649EC00C1A2F7 /* BluetoothSupport */,
+				811DDF142D7CF80E00D86DE3 /* ChartView */,
 				6D1B0F102AA63D7500C1A2F7 /* DeviceView */,
 				6D3B18052B32EF7A00FB54EE /* NotificationManager */,
 				6D1B0F0A2AA63D7500C1A2F7 /* SeparatorView */,
@@ -150,7 +153,6 @@
 		07C9B5FB2685F50E00951A68 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				6D7A16BA27E2521D00C53B39 /* 3d_arrow.usdz */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -260,6 +262,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				811DDF142D7CF80E00D86DE3 /* ChartView */,
+			);
 			name = "ShutEye App";
 			packageProductDependencies = (
 				5A0BC7F92A8FBD5A0044AF01 /* FirebaseCrashlytics */,
@@ -325,7 +330,6 @@
 				6D85D2BA27C3A07100220F5D /* Linotype - DINNextLTPro-Light.otf in Resources */,
 				6D85D2B627C3A07100220F5D /* Linotype - DINNextLTPro-HeavyItalic.otf in Resources */,
 				6D84C9FB27875507003E3FFC /* assets in Resources */,
-				6D7A16BB27E2521D00C53B39 /* 3d_arrow.usdz in Resources */,
 				A9A7C756227E1D6200F2CC59 /* README.md in Resources */,
 				6D85D2B127C3A07100220F5D /* Linotype - DINNextLTPro-Black.otf in Resources */,
 				6D85D2B327C3A07100220F5D /* Linotype - DINNextLTPro-UltraLightIt.otf in Resources */,

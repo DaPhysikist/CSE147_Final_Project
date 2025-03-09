@@ -50,6 +50,7 @@
  */
 
 import UIKit
+import SwiftUI
 import NearbyInteraction
 import os.log
 
@@ -105,8 +106,36 @@ class QorvoDemoViewController: UIViewController, TableProtocol {
     
     let logger = os.Logger(subsystem: "com.qorvo.nibg", category: "QorvoDemoViewController")
     
+    let energyChartButton = UIButton(type: .system) // Create button
+        
+    func setupEnergyChartButton() {
+        energyChartButton.setTitle("View Energy Chart", for: .normal)
+        energyChartButton.backgroundColor = .systemBlue
+        energyChartButton.setTitleColor(.white, for: .normal)
+        energyChartButton.layer.cornerRadius = 8
+        energyChartButton.addTarget(self, action: #selector(showEnergyChart), for: .touchUpInside)
+        
+        energyChartButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(energyChartButton)
+        
+        NSLayoutConstraint.activate([
+            energyChartButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            energyChartButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            energyChartButton.widthAnchor.constraint(equalToConstant: 200),
+            energyChartButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    @objc func showEnergyChart() {
+        let selectedDevice = "microwave"
+
+        let chartView = UIHostingController(rootView: BarChartView(applianceName: selectedDevice))
+        navigationController?.pushViewController(chartView, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupEnergyChartButton()
         
         // Notification from Settings View Controller
         NotificationCenter.default.addObserver(self,
@@ -533,5 +562,13 @@ extension String {
     }
     var localizedUppercase: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "").uppercased()
+    }
+}
+
+extension UIViewController {
+    func presentSwiftUIView<Content: View>(_ swiftUIView: Content, title: String) {
+        let hostingController = UIHostingController(rootView: swiftUIView)
+        hostingController.title = title
+        navigationController?.pushViewController(hostingController, animated: true)
     }
 }
