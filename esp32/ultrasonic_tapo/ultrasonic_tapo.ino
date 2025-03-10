@@ -63,7 +63,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 // Main control variables
 int TIMEOUT_PERIOD = 15000;  // in ms
 int DISTANCE_THRESHOLD = 10; // in centimeters
-int avgDistance = 0;
+//int avgDistance = 0;
 
 // rotary encoder / timeout handling
 int adjustMode = 0;
@@ -76,11 +76,11 @@ float distance = 0.0;
 
 int encoderState = 0;
 unsigned long lastEncoderTime = 0;
-unsigned long encoderDelay = 25;
+unsigned long encoderDelay = 50;
 
 int buttonState = 0;
 unsigned long lastButtonPress = 0;
-unsigned long debounceDelay = 400;
+unsigned long debounceDelay = 750;
 
 // tapo off timeout control
 long int currTime = 0;
@@ -216,7 +216,8 @@ void checkFire()
 void check_distance_and_shutoff(int avgDistance)
 {
     // Convert avgDistance from mm to cm for comparison
-    float avgDistance_cm = avgDistance / 10.0;
+    //float avgDistance_cm = avgDistance / 10.0; // UWB returns millimeter
+    float avgDistance_cm = avgDistance; // by default ultrasonic returns centimeter data
     currTime = millis();
     if (avgDistance_cm > DISTANCE_THRESHOLD)
     {
@@ -270,7 +271,7 @@ void setup()
         Serial.println("\nWiFi connected!");
         Serial.print("IP address: ");
         Serial.println(WiFi.localIP());
-        tapo.begin("192.168.8.10", "pvmehta936@gmail.com", "Password123");
+        tapo.begin("192.168.8.18", "pvmehta936@gmail.com", "Password123");
     }
     else
     {
@@ -472,8 +473,8 @@ void updateOLED()
     }
     else
     {
-        display.print("UWB Dist, cm: ");
-        display.println(avgDistance / 10.0);
+        display.print("Dist, cm: ");
+        display.println(distance);
         display.print("Power, mW: ");
         display.println(result_current_power);
         display.print("Energy Today, Wh: ");
@@ -500,7 +501,8 @@ void loop()
 
     encoderButton();
     adjustSettings();
-    check_distance_and_shutoff(avgDistance);
+    check_distance_and_shutoff(distance);
+    updateOLED();
 
     String energyData = tapo.energy();
     tapo.update();
@@ -516,8 +518,6 @@ void loop()
         result_month_energy = monthEnergy;
         result_current_power = currentPower;
         result_local_time = localTime;
-
-        updateOLED();
 
         if (millis() - lastPeriodicUpdate > PERIODIC_UPDATE_INTERVAL)
         {
