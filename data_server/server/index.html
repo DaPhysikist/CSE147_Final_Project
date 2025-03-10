@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShutEye App</title>
+  <link rel="stylesheet" href="static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h1>Hello, World!</h1>
+  <div class="container">
+    <header>
+      <h1>Appliance Energy Consumption</h1>
+    </header>
+
+    <section class="controls">
+      <div class="dropdown">
+        <label for="date-select">Select Date: </label>
+        <select id="date-select">>
+        </select>
+      </div>
+
+      <div class="dropdown">
+        <label for="appliance-select">Select Appliance: </label>
+        <select id="appliance-select">
+        </select>
+      </div>
+
+      <button id="fetch-button">Fetch Data</button>
+    </section>
+
+    <section class="chart-container">
+        <canvas id="totalEnergyChart"></canvas>
+        <canvas id="energyPresenceChart"></canvas>
+        <canvas id="presencePercentageChart"></canvas>
+    </section>
+  </div>
+
+  <script src="static/scripts.js"></script>
 </body>
 </html>
