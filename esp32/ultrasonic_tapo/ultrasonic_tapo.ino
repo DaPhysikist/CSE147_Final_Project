@@ -521,7 +521,7 @@ void loop()
 
         if (millis() - lastPeriodicUpdate > PERIODIC_UPDATE_INTERVAL)
         {
-            sendPeriodicData(currentDistance, localTime, currentPower);
+            sendPeriodicData(distance, localTime, currentPower);
             lastPeriodicUpdate = millis();
         }
 

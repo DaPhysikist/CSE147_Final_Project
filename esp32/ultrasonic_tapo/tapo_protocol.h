@@ -127,11 +127,13 @@ private:
 
     std::vector<uint8_t> handshake1(const std::vector<uint8_t>& local_seed, const std::vector<uint8_t>& auth_hash) {
         String response_str;
+        TAPO_PROTOCOL_DEBUG("Handshake1 starting");
         post("/handshake1", local_seed, [&response_str](HTTPClient& http) {
             response_str = http.getString();
         }, true);
-
+        TAPO_PROTOCOL_DEBUG("Handshake1 post success");
         std::vector<uint8_t> remote_seed(response_str.begin(), response_str.begin() + 16);
+        TAPO_PROTOCOL_DEBUG("Handshake1 first string op success");
         std::vector<uint8_t> server_hash(response_str.begin() + 16, response_str.end());
         std::vector<uint8_t> local_hash = TapoCipher::sha256(TapoCipher::concat(local_seed, remote_seed, auth_hash));
         if (local_hash != server_hash) {
