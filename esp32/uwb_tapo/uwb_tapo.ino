@@ -193,7 +193,7 @@ void checkWiFiConnection() {
 }
 
 void loop() {
-  checkWiFiConnection();
+    checkWiFiConnection();
 
     while (mySerial.available()) {
         char receivedChar = mySerial.read();
@@ -217,6 +217,15 @@ void loop() {
                     Serial.print(avgDistance);
                     Serial.println(" mm");
 
+                    // Turn Tapo Plug ON/OFF based on distance
+                    if (avgDistance > 3000 || avgDistance == 0) {
+                        tapo.off();
+                        Serial.println("Tapo turned OFF");
+                    } else {
+                        tapo.on();
+                        Serial.println("Tapo turned ON");
+                    }
+
                     // Get Tapo Energy Data
                     String energyData = tapo.energy();
                     int todayRuntime, monthRuntime, todayEnergy, monthEnergy, currentPower;
@@ -224,26 +233,19 @@ void loop() {
 
                     if (parseTapoEnergy(energyData, todayRuntime, monthRuntime, todayEnergy, monthEnergy, localTime, currentPower)) {
                         Serial.println("Parsed Tapo energy data successfully.");
-
-                        // Send periodic data every 5 seconds
+                        
                         if (millis() - lastPeriodicUpdate > PERIODIC_UPDATE_INTERVAL) {
                             sendPeriodicData(currentDistance, localTime, currentPower);
                             lastPeriodicUpdate = millis();
                         }
 
-                        // Send historical data every 30 seconds
                         if (millis() - lastHistoricalUpdate > HISTORICAL_UPDATE_INTERVAL) {
                             sendHistoricalData(todayRuntime, monthRuntime, todayEnergy, monthEnergy, localTime);
                             lastHistoricalUpdate = millis();
                         }
-                    } else {
-                        Serial.println("Failed to parse Tapo energy data.");
                     }
-                } else {
-                    Serial.println("Received invalid distance reading");
                 }
             }
-
             bufferIndex = 0;
             buffer[0] = '\0';
         }
