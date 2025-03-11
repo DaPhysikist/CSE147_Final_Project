@@ -74,10 +74,12 @@ unsigned long lastAdjustTime = 0;
 float timing = 0.0;
 float distance = 0.0;
 
+// rotary encoder (rotation)
 int encoderState = 0;
 unsigned long lastEncoderTime = 0;
 unsigned long encoderDelay = 50;
 
+// rotary encoder (button)
 int buttonState = 0;
 unsigned long lastButtonPress = 0;
 unsigned long debounceDelay = 750;
@@ -94,9 +96,10 @@ int result_today_energy = 0, result_month_energy = 0;
 int result_current_power = 0;
 String result_local_time = "";
 
+// returns counter-clockwise, clockwise, or no movement
 int readEncoder()
 {
-    if ((millis() - lastEncoderTime) < encoderDelay)
+    if ((millis() - lastEncoderTime) < encoderDelay) // debouncing
         return 0;
     lastEncoderTime = millis();
     lastButtonPress = millis(); // twisting can be treated as a press
@@ -120,6 +123,8 @@ int readEncoder()
     return 0;
 }
 
+// determines if the button was pressed
+// if the button was pressed, it will enter adjust mode
 void encoderButton()
 {
     int reading = digitalRead(ENCODER_SW_PIN);
@@ -148,6 +153,7 @@ void encoderButton()
     buttonState = reading;
 }
 
+// if in adjust mode, adjust the settings depending on rotary encoder input
 void adjustSettings()
 {
     if (adjustMode)
@@ -173,7 +179,7 @@ void adjustSettings()
             }
             lastAdjustTime = millis();
         }
-        if ((millis() - lastAdjustTime) > 5000)
+        if ((millis() - lastAdjustTime) > 5000) // timeout of adjusting settings after 5 seconds
         {
             adjustMode = 0;
         }
@@ -204,7 +210,7 @@ void checkFire()
         {
             delay(100);
         }
-        // Reactivate if needed
+        // Reactivate
         tapo.on();
         while (tapo.update() == 2)
         {
@@ -222,12 +228,13 @@ void check_distance_and_shutoff(int avgDistance)
     if (avgDistance_cm > DISTANCE_THRESHOLD)
     {
         if (timeout != 1)
-        { // starting timeout
+        { // starting timeout countdown
             elapsed = currTime;
             timeout = 1;
         }
         else
         {
+            // if distance still high and timeout countdown complete, turn off tapo
             if (currTime - elapsed > TIMEOUT_PERIOD && tapoState == 1)
             {
                 tapo.off();
@@ -248,59 +255,6 @@ void check_distance_and_shutoff(int avgDistance)
             Serial.println("Tapo On (reset timeout)");
             tapoState = 1;
         }
-    }
-}
-
-void setup()
-{
-    Serial.begin(115200);
-    mySerial.begin(115200, SERIAL_8N1, 16, 17);
-
-    WiFi.begin(ssid, password);
-    Serial.println("Connecting to WiFi...");
-
-    unsigned long startTime = millis();
-    while (WiFi.status() != WL_CONNECTED && millis() - startTime < 30000)
-    {
-        delay(1000);
-        Serial.print(".");
-    }
-
-    if (WiFi.status() == WL_CONNECTED)
-    {
-        Serial.println("\nWiFi connected!");
-        Serial.print("IP address: ");
-        Serial.println(WiFi.localIP());
-        tapo.begin("192.168.8.18", "pvmehta936@gmail.com", "Password123");
-    }
-    else
-    {
-        Serial.println("\nWiFi connection failed!");
-    }
-
-    // Display
-    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS))
-    {
-        Serial.println(F("SSD1306 allocation failed"));
-        while (1)
-            ;
-    }
-    display.clearDisplay();
-    display.display();
-
-    //  digital pins
-    pinMode(FLAME_PIN, INPUT);
-    pinMode(ENCODER_CLK_PIN, INPUT);
-    pinMode(ENCODER_DT_PIN, INPUT);
-    pinMode(ENCODER_SW_PIN, INPUT);
-    pinMode(TRIG_PIN, OUTPUT);
-    pinMode(ECHO_PIN, INPUT);
-
-    Serial.println("ESP32 UART Distance Receiver Started");
-
-    for (int i = 0; i < NUM_READINGS; i++)
-    {
-        distanceBuffer[i] = 0;
     }
 }
 
@@ -450,6 +404,8 @@ void checkWiFiConnection()
     }
 }
 
+// OLED normally shows: power, today's energy, distance, and the timeout left
+// If in adjust mode, it shows the current parameter being adjusted.
 void updateOLED()
 {
     display.clearDisplay();
@@ -485,11 +441,67 @@ void updateOLED()
     display.display();
 }
 
+
+void setup()
+{
+    Serial.begin(115200);
+    mySerial.begin(115200, SERIAL_8N1, 16, 17);
+
+    WiFi.begin(ssid, password);
+    Serial.println("Connecting to WiFi...");
+
+    unsigned long startTime = millis();
+    while (WiFi.status() != WL_CONNECTED && millis() - startTime < 30000)
+    {
+        delay(1000);
+        Serial.print(".");
+    }
+
+    if (WiFi.status() == WL_CONNECTED)
+    {
+        Serial.println("\nWiFi connected!");
+        Serial.print("IP address: ");
+        Serial.println(WiFi.localIP());
+        tapo.begin("192.168.8.18", "pvmehta936@gmail.com", "Password123");
+    }
+    else
+    {
+        Serial.println("\nWiFi connection failed!");
+    }
+
+    // Display
+    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS))
+    {
+        Serial.println(F("SSD1306 allocation failed"));
+        while (1)
+            ;
+    }
+    display.clearDisplay();
+    display.display();
+
+    //  digital pins
+    pinMode(FLAME_PIN, INPUT);
+    pinMode(ENCODER_CLK_PIN, INPUT);
+    pinMode(ENCODER_DT_PIN, INPUT);
+    pinMode(ENCODER_SW_PIN, INPUT);
+    pinMode(TRIG_PIN, OUTPUT);
+    pinMode(ECHO_PIN, INPUT);
+
+    Serial.println("ESP32 UART Distance Receiver Started");
+
+    for (int i = 0; i < NUM_READINGS; i++)
+    {
+        distanceBuffer[i] = 0;
+    }
+}
+
+
 void loop()
 {
 
     checkWiFiConnection();
     checkFire();
+    
     // ultrasonic
     digitalWrite(TRIG_PIN, LOW);
     delay(2);
