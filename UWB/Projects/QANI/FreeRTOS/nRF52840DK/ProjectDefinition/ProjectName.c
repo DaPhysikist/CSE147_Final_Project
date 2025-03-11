@@ -50,6 +50,6 @@
  */
 
 const char ProjectName[] = "ShutEye";
-const char BoardName[] = "nRF52840DK";
+char BoardName[] = "ShutEye-Device";
 const char OsName[] = "FreeRTOS";
 const char ApplicationName[] = "ShutEye App";
