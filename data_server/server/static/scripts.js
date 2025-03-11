@@ -80,9 +80,9 @@ document.addEventListener("DOMContentLoaded", function () {
       hours.forEach(hour => {
         const hourData = filteredData.filter(data => data.local_time.includes(`${selectedDate} ${hour}`));
 
-        let totalWattHours = 0;
-        let userPresenceWattHours = 0;
-        let noUserPresenceWattHours = 0;
+        let totalMilliwattSeconds = 0;
+        let userPresenceMilliwattSeconds = 0;
+        let noUserPresenceMilliwattSeconds = 0;
         let totalPresenceTime = 0;
         let totalTimeInHour = 0;
 
@@ -93,22 +93,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const previousTime = new Date(previousMeasurement.local_time);
             const currentTime = new Date(currentMeasurement.local_time);
-            const timeDifferenceInSeconds = (currentTime - previousTime) / 1000;
+            const timeDifferenceInSeconds = (currentTime - previousTime);
 
-            const wattSeconds = timeDifferenceInSeconds * previousMeasurement.current_power;
-            const wattHours = wattSeconds / 3600;
+            const milliWattSeconds = timeDifferenceInSeconds * previousMeasurement.current_power;
 
-            totalWattHours += wattHours;
+            totalMilliwattSeconds += milliWattSeconds;
             totalTimeInHour += timeDifferenceInSeconds;
 
             if (previousMeasurement.user_presence_detected) {
-              userPresenceWattHours += wattHours;
+              userPresenceMilliwattSeconds += milliWattSeconds;
               totalPresenceTime += timeDifferenceInSeconds;
             } else {
-              noUserPresenceWattHours += wattHours;
+              noUserPresenceMilliwattSeconds += milliWattSeconds;
             }
           }
         }
+
+        const totalWattHours = totalMilliwattSeconds / (3600 * 1000);  //divide by 3600 to convert seconds to hours, divide by 1000 to convert milliWatts to Watts
+        const userPresenceWattHours = userPresenceMilliwattSeconds / (3600 * 1000);
+        const noUserPresenceWattHours = noUserPresenceMilliwattSeconds / (3600 * 1000);
 
         totalPowerData.push(totalWattHours);
         userPresenceEnergyData.push(userPresenceWattHours);
