@@ -10,6 +10,7 @@
 #define TAPO_PROTOCOL_DEBUG(x)
 #endif
 
+// largely unmodified from original tapo-esp32 library
 class TapoProtocol {
 public:
     void handshake(const String& ip_address, const String& username, const String& password) {        

@@ -5,6 +5,12 @@
 #define TAPO_MAX_SEND_RETRIES 3
 #define TAPO_MAX_RECONNECT_RETRIES 3
 
+// significant modifications from original tapo-esp32 library
+// changes described in final report
+// summary:
+// added support for energy polling
+// split send_command into update and sendCommand for nonblocking delays
+// add a priority system for commands
 
 struct Command {
     String command;
@@ -29,6 +35,7 @@ private:
         return response.indexOf(expected_state) != -1;
     }
 
+    // unused
     bool send_command(const String &command, const String &expected_state = "") {
         for (int i = 0; i < TAPO_MAX_RECONNECT_RETRIES; i++) {
             for (int j = 0; j < TAPO_MAX_SEND_RETRIES; j++) {
@@ -49,6 +56,11 @@ private:
 public:
 
     // 0 = no command, 1 = completed successfully, 2 = command in progress, 3 = failed
+    // first check if enough time has elapsed before runnning the same command
+    // second check if you have enough retries left to send the command
+    // third check if you have enough retries left to reconnect
+    // if you run out of attempts, fail and mark the command as inactive
+    // or succeed, and mark command as inactive
     int update() { // needs to be called in main loop to progress commands
         if (commandActive) {
             //Serial.print("TAPO_DEVICE: Command active: "); 
@@ -104,9 +116,10 @@ public:
         }
     }
 
+    // update command struct only if
+    // 1. The command is inactive
+    // 2. The command is lower priority than the command you're trying to send
     void sendCommand(const String &command, const String &expected_state = "", int priority = 0) {
-        //if (!commandActive) {
-        //if (millis() - currCommand.last_retry_time > retryDelay) {
         if (priority > currCommand.priority || !commandActive) {
             currCommand.command = command;
             currCommand.expected_state = expected_state;
@@ -117,8 +130,6 @@ public:
             currCommand.response = "";
             currCommand.gotResponse = 0;
             commandActive = true;
-        //} else {
-            //Serial.println("TAPO_DEVICE: Command not sent - not enough time has passed since last command attempt.");
         }
     }
     
@@ -163,6 +174,9 @@ public:
         //Serial.println("TAPO_DEVICE: Energy command sent");
         return currCommand.response;
     }
+    
+    // energy command for old send_command function
+
     // String energy() {
     //     String command = "{\"method\":\"get_energy_usage\",\"params\":{}}";
     //     //String expected_state = "";
@@ -181,21 +195,4 @@ public:
     //     return "";
     // }
 
-    // String emeter() {
-    //     String command = "{\"method\":\"get_emeter_usage\",\"params\":{}}";
-    //     //String expected_state = "";
-    //     for (int i = 0; i < TAPO_MAX_RECONNECT_RETRIES; i++) {
-    //         for (int j = 0; j < TAPO_MAX_SEND_RETRIES; j++) {
-    //             String response = protocol.send_message(command);
-    //             delay(1000); // Wait for the command to be applied
-
-
-    //             return response;
-    //         }
-    //         Serial.println("TAPO_DEVICE: Failed to send command, rehandshaking...");
-    //         protocol.rehandshake();
-    //     }
-    //     Serial.println("TAPO_DEVICE: Failed to rehandshake, giving up command");
-    //     return "";
-    // }
 };

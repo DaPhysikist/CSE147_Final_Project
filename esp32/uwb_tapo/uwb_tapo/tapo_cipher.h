@@ -9,7 +9,7 @@
 #include <mbedtls/sha256.h>
 #include <mbedtls/aes.h>
 
-
+// unmodified from original tapo-esp32 library
 class TapoCipher {
 public:
     TapoCipher(const std::vector<uint8_t>& local_seed,
