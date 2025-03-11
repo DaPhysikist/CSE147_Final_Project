@@ -80,14 +80,17 @@
 #define ACCESSORY_RANGING_ROLE (1) /**< Responder 0, Initiator 1 */
 #endif
 
+#define BOARD_NAME_MAX_LEN 32  // Define max length for safety
+
 extern void ble_init(char *gap_name);
+extern data_circ_buf_t *uartRx;
 #if NRF_LOG_ENABLED
 void init_logger_thread();
 #endif // NRF_LOG_ENABLED
 
 extern const char ApplicationName[]; /**< Name of Application release. */
 extern const char OsName[];
-extern const char BoardName[]; /**< Name of Target. Indicated in the advertising data. */
+extern char BoardName[]; /**< Name of Target. Indicated in the advertising data. */
 
 #define DEAD_BEEF 0xDEADBEEF /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 
@@ -118,7 +121,6 @@ static void clock_init(void) {
     APP_ERROR_CHECK(err_code);
 }
 
-
 /**@brief Function for application main entry.
  */
 int main(void) {
@@ -132,7 +134,7 @@ int main(void) {
     init_logger_thread();
 #endif
 
-    deca_uart_init();  //Inititalize UART
+    deca_uart_init();  //Inititalize UART                                                                                                           
 
     // Accessory Nearby Interaction Initialization
     niq_init(ResumeUwbTasks, StopUwbTask, (const void *)nrf_crypto_init,
