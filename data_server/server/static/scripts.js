@@ -78,7 +78,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const userPresencePercentageData = [];
 
       hours.forEach(hour => {
-        const hourData = filteredData.filter(data => data.local_time.includes(`${selectedDate} ${hour}`));
+        const hourStart = new Date(`${selectedDate} ${hour}`);
+        const hourEnd = new Date(hourStart);
+        hourEnd.setHours(hourStart.getHours() + 1);  // End time is 1 hour after start
+
+        // Filter data to only include entries within the current hour range
+        const hourData = filteredData.filter(entry => {
+          const entryTime = new Date(entry.local_time);
+          return entryTime >= hourStart && entryTime < hourEnd;
+        });
 
         let totalMilliwattSeconds = 0;
         let userPresenceMilliwattSeconds = 0;
@@ -87,29 +95,31 @@ document.addEventListener("DOMContentLoaded", function () {
         let totalTimeInHour = 0;
 
         if (hourData.length > 0) { 
-          for (let i = 1; i < hourData.length; i++) {
-            const previousMeasurement = hourData[i - 1];
+          for (let i = 0; i < hourData.length; i++) {  // Start at 0, not 1
             const currentMeasurement = hourData[i];
+            const previousMeasurement = hourData[i - 1];  // Use previousMeasurement only if i > 0
 
-            const previousTime = new Date(previousMeasurement.local_time);
-            const currentTime = new Date(currentMeasurement.local_time);
-            const timeDifferenceInSeconds = (currentTime - previousTime);
+            if (previousMeasurement) {
+              const previousTime = new Date(previousMeasurement.local_time);
+              const currentTime = new Date(currentMeasurement.local_time);
+              const timeDifferenceInSeconds = (currentTime - previousTime) / 1000;
 
-            const milliWattSeconds = timeDifferenceInSeconds * previousMeasurement.current_power;
+              const milliWattSeconds = timeDifferenceInSeconds * previousMeasurement.current_power;
 
-            totalMilliwattSeconds += milliWattSeconds;
-            totalTimeInHour += timeDifferenceInSeconds;
+              totalMilliwattSeconds += milliWattSeconds;
+              totalTimeInHour += timeDifferenceInSeconds;
 
-            if (previousMeasurement.user_presence_detected) {
-              userPresenceMilliwattSeconds += milliWattSeconds;
-              totalPresenceTime += timeDifferenceInSeconds;
-            } else {
-              noUserPresenceMilliwattSeconds += milliWattSeconds;
+              if (previousMeasurement.user_presence_detected) {
+                userPresenceMilliwattSeconds += milliWattSeconds;
+                totalPresenceTime += timeDifferenceInSeconds;
+              } else {
+                noUserPresenceMilliwattSeconds += milliWattSeconds;
+              }
             }
           }
         }
 
-        const totalWattHours = totalMilliwattSeconds / (3600 * 1000);  //divide by 3600 to convert seconds to hours, divide by 1000 to convert milliWatts to Watts
+        const totalWattHours = totalMilliwattSeconds / (3600 * 1000);  // Convert milliWatt-seconds to Watt-hours
         const userPresenceWattHours = userPresenceMilliwattSeconds / (3600 * 1000);
         const noUserPresenceWattHours = noUserPresenceMilliwattSeconds / (3600 * 1000);
 
