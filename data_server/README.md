@@ -1,3 +1,12 @@
 ### Directory Breakdown:
-- env.exammple - Use this example file to create a .env file for storing environment variables on the server
+- env.example - Use this example file to create a .env file for storing environment variables on the server
 - requirements.txt - Contains a list of the Python dependencies used for the data server. After creating a Python virtual environment to run the server, run `pip install -r requirements.txt` to install all the Python dependencies
+- server
+    - static
+        - favicon.ico - The ShutEye logo used for the web app
+        - scripts.js - The JavaScript file used for the web app
+        - styles.css - The CSS file used for the web app
+    -  index.html - The HTML file used for the web app
+    - init_db.py - Python script used for initializing the MariaDB data server
+    - init_db.sql - SQL file that be manually used to do the same thing as init_db.py if desired
+    - server.py - Python script that starts the FastAPI application, which has a web app portion, as well as HTTP-based REST API routes used for data stores and fetches to the running data server.
