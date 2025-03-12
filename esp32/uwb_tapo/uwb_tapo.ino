@@ -1,4 +1,4 @@
-#include <Arduino.h>
+#include <PubSubClient.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
@@ -10,36 +10,6 @@
 
 #define TAPO_DEBUG_MODE // Comment this line to disable debug messages
 #include "tapo_device.h"
-
-HardwareSerial mySerial(2);
-TapoDevice tapo;
-
-// WiFi Credentials
-const char *ssid = "DaWiFi";
-const char *password = "DaPassword123!";
-
-// FastAPI Server Address
-const char *serverIP = "192.168.8.27";
-const int serverPort = 6543;
-
-// Buffer for receiving distance data
-char buffer[50];
-int bufferIndex = 0;
-
-const String applianceName = "microwave";
-
-// Circular buffer for averaging distance readings
-const int NUM_READINGS = 5;
-int distanceBuffer[NUM_READINGS] = {0};
-int bufferPos = 0;
-int totalDistances = 0;
-bool bufferFilled = false;
-
-// Timers for periodic data updates
-unsigned long lastPeriodicUpdate = 0;
-unsigned long lastHistoricalUpdate = 0;
-const unsigned long PERIODIC_UPDATE_INTERVAL = 5000;    // 5 sec
-const unsigned long HISTORICAL_UPDATE_INTERVAL = 30000; // 30 sec
 
 // flame sensor
 #define FLAME_PIN 23
@@ -54,27 +24,63 @@ const unsigned long HISTORICAL_UPDATE_INTERVAL = 30000; // 30 sec
 #define SCREEN_HEIGHT 32
 #define OLED_RESET -1
 #define SCREEN_ADDRESS 0x3C
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+const String applianceName = "lamp";
+
+// WiFi Credentials
+const char *ssid = "DaWiFi";
+const char *password = "DaPassword123!";
+
+const char* mqtt_broker = "192.168.8.27";
+const int mqtt_port = 1883;
+const char* mqtt_topic = "espresense/devices/pranav-phone/living_room";
+const char* mqtt_username = "DaUser";
+const char* mqtt_password = "DaPassword123!";
+
+// FastAPI Server Address
+const char *serverIP = "192.168.8.27";
+const int serverPort = 6543;
+
+// Buffer for receiving distance data
+char buffer[50];
+int bufferIndex = 0;
+
+// Circular buffer for averaging distance readings
+const int NUM_READINGS = 5;
+int distanceBuffer[NUM_READINGS] = {0};
+int bufferPos = 0;
+int totalDistances = 0;
+bool bufferFilled = false;
+
+// Timers for periodic data updates
+unsigned long lastPeriodicUpdate = 0;
+unsigned long lastHistoricalUpdate = 0;
+const unsigned long PERIODIC_UPDATE_INTERVAL = 5000;    // 5 sec
+const unsigned long HISTORICAL_UPDATE_INTERVAL = 3600000; // 1 hr
 
 // Main control variables
 int TIMEOUT_PERIOD = 15000;  // in ms
-int DISTANCE_THRESHOLD = 10; // in centimeters
+int UWB_DISTANCE_THRESHOLD_CM = 10; // in centimeters
 int avgDistance = 0;
+
+// Bluetooth distance
+float bluetoothDistance;
+bool userPresenceDetected;
 
 // rotary encoder / timeout handling
 int adjustMode = 0;
 int adjustOption = 0; // 0 = timeout, 1 = distance threshold
 unsigned long lastAdjustTime = 0;
 
-// rotary encoder (rotation)
 int encoderState = 0;
 unsigned long lastEncoderTime = 0;
 unsigned long encoderDelay = 25;
 
-// rotary encoder (button)
 int buttonState = 0;
 unsigned long lastButtonPress = 0;
 unsigned long debounceDelay = 400;
+
+int flame;
 
 // tapo off timeout control
 long int currTime = 0;
@@ -83,12 +89,17 @@ int timeout = 0;
 int tapoState = 1;
 
 // energy data
-int result_today_runtime = 0, result_month_runtime = 0;
-int result_today_energy = 0, result_month_energy = 0;
-int result_current_power = 0;
-String result_local_time = "";
+int resultTodayRuntime = 0, resultMonthRuntime = 0;
+int resultTodayEnergy = 0, resultMonthEnergy = 0;
+int resultCurrentPower = 0;
+String resultLocalTime = "";
 
-// returns counter-clockwise, clockwise, or no movement
+HardwareSerial mySerial(2);  // UART interface
+TapoDevice tapo;
+WiFiClient espClient;
+PubSubClient client(espClient);
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
 int readEncoder()
 {
     if ((millis() - lastEncoderTime) < encoderDelay)
@@ -115,8 +126,6 @@ int readEncoder()
     return 0;
 }
 
-// determines if the button was pressed
-// if the button was pressed, it will enter adjust mode
 void encoderButton()
 {
     int reading = digitalRead(ENCODER_SW_PIN);
@@ -145,7 +154,6 @@ void encoderButton()
     buttonState = reading;
 }
 
-// if in adjust mode, adjust the settings depending on rotary encoder input
 void adjustSettings()
 {
     if (adjustMode)
@@ -163,15 +171,15 @@ void adjustSettings()
             }
             else
             {
-                DISTANCE_THRESHOLD += encoderVal * 5;
-                if (DISTANCE_THRESHOLD < 20)
-                    DISTANCE_THRESHOLD = 20;
-                if (DISTANCE_THRESHOLD > 1000)
-                    DISTANCE_THRESHOLD = 1000;
+                UWB_DISTANCE_THRESHOLD_CM += encoderVal * 5;
+                if (UWB_DISTANCE_THRESHOLD_CM < 20)
+                    UWB_DISTANCE_THRESHOLD_CM = 20;
+                if (UWB_DISTANCE_THRESHOLD_CM > 1000)
+                    UWB_DISTANCE_THRESHOLD_CM = 1000;
             }
             lastAdjustTime = millis();
         }
-        if ((millis() - lastAdjustTime) > 5000) // timeout of adjusting settings after 5 seconds
+        if ((millis() - lastAdjustTime) > 5000)
         {
             adjustMode = 0;
         }
@@ -180,11 +188,11 @@ void adjustSettings()
 
 void checkFire()
 {
-    int flame = digitalRead(FLAME_PIN);
     if (flame == 0)
         return;
     if (flame == 1)
     {
+        Serial.println("Fire!");
         display.clearDisplay();
         display.setTextSize(1);
         display.setTextColor(SSD1306_WHITE);
@@ -193,59 +201,48 @@ void checkFire()
         display.println("Tapo Off for Safety");
         display.display();
         tapo.off();
-        while (tapo.update() == 2)
-        {
-            tapo.update();
-        }
-        // Wait until fire is no longer detected
-        while (digitalRead(FLAME_PIN) == 1)
-        {
-            delay(100);
-        }
-        // Reactivate
-        tapo.on();
-        while (tapo.update() == 2)
-        {
-            tapo.update();
-        }
     }
 }
 
-void check_distance_and_shutoff(int avgDistance)
+void check_distance_and_shutoff()
 {
     // Convert avgDistance from mm to cm for comparison
     float avgDistance_cm = avgDistance / 10.0;
     currTime = millis();
-    if (avgDistance_cm > DISTANCE_THRESHOLD)
+    if (avgDistance_cm < UWB_DISTANCE_THRESHOLD_CM && (bluetoothDistance < 10.0))
     {
-        if (timeout != 1)
-        { // starting timeout countdown
-            elapsed = currTime;
-            timeout = 1;
-        }
-        else
-        {
-            // if distance still high and timeout countdown complete, turn off tapo
-            if (currTime - elapsed > TIMEOUT_PERIOD && tapoState == 1)
-            {
-                tapo.off();
-                tapo.update();
-                Serial.println("Tapo Off due to timeout");
-                tapoState = 0;
-            }
-        }
+      userPresenceDetected = true;
+      elapsed = currTime;
+      tapoState = 1;
+      if (!flame) {
+        tapo.on();
+        tapo.update();
+      }
+      if (timeout == 1)
+      {
+          timeout = 0; // reset timeout
+          Serial.println("Tapo On (reset timeout)");
+          
+      }
     }
     else
     {
-        elapsed = currTime;
-        if (timeout == 1)
-        {
-            timeout = 0; // reset timeout
-            tapo.on();
-            tapo.update();
-            Serial.println("Tapo On (reset timeout)");
-            tapoState = 1;
-        }
+      userPresenceDetected = false;
+      if (timeout != 1)
+      { // starting timeout
+          elapsed = currTime;
+          timeout = 1;
+      }
+      else
+      {
+          if (currTime - elapsed > TIMEOUT_PERIOD && tapoState == 1)
+          {
+              tapo.off();
+              tapo.update();
+              Serial.println("Tapo Off due to timeout");
+              tapoState = 0;
+          } 
+      }
     }
 }
 
@@ -271,27 +268,25 @@ void addDistanceReading(int newDistance)
     }
 }
 
-// Function to parse JSON response from `tapo.energy()`
-bool parseTapoEnergy(String jsonString, int &todayRuntime, int &monthRuntime, int &todayEnergy, int &monthEnergy, String &localTime, int &currentPower)
+// Function to parse JSON response from tapo.energy()
+bool parseTapoEnergy(String jsonString)
 {
     StaticJsonDocument<512> doc;
 
     DeserializationError error = deserializeJson(doc, jsonString);
     if (error)
     {
-        Serial.print("JSON Parse Error: ");
-        Serial.println(error.c_str());
         return false;
     }
 
     if (doc.containsKey("result"))
     {
-        todayRuntime = doc["result"]["today_runtime"];
-        monthRuntime = doc["result"]["month_runtime"];
-        todayEnergy = doc["result"]["today_energy"];
-        monthEnergy = doc["result"]["month_energy"];
-        localTime = doc["result"]["local_time"].as<String>();
-        currentPower = doc["result"]["current_power"];
+        resultTodayRuntime = doc["result"]["today_runtime"];
+        resultMonthRuntime = doc["result"]["month_runtime"];
+        resultTodayEnergy = doc["result"]["today_energy"];
+        resultMonthEnergy = doc["result"]["month_energy"];
+        resultLocalTime = doc["result"]["local_time"].as<String>();
+        resultCurrentPower = doc["result"]["current_power"];
 
         return true;
     }
@@ -341,9 +336,9 @@ void sendPeriodicData(int distance, String localTime, int currentPower)
     periodicData["local_time"] = localTime;
     periodicData["current_power"] = currentPower;
     periodicData["distance_ultrasonic"] = 0;
-    periodicData["distance_bluetooth"] = 0;
-    periodicData["distance_ultrawideband"] = distance;
-    periodicData["user_presence_detected"] = (distance < (DISTANCE_THRESHOLD*10)); // compare mm to cm
+    periodicData["distance_bluetooth"] = bluetoothDistance;
+    periodicData["distance_ultrawideband"] = avgDistance;
+    periodicData["user_presence_detected"] = userPresenceDetected;
 
     char periodicJson[256];
     serializeJson(periodicData, periodicJson);
@@ -393,10 +388,10 @@ void checkWiFiConnection()
             Serial.println("\nFailed to reconnect.");
         }
     }
+
+    if(!client.connected()){connectToMQTT();}
 }
 
-// OLED normally shows: power, today's energy, distance, and the timeout left
-// If in adjust mode, it shows the current parameter being adjusted.
 void updateOLED()
 {
     display.clearDisplay();
@@ -415,7 +410,7 @@ void updateOLED()
         else
         {
             display.print("Distance Thresh (cm): ");
-            display.println(DISTANCE_THRESHOLD);
+            display.println(UWB_DISTANCE_THRESHOLD_CM);
         }
     }
     else
@@ -423,147 +418,158 @@ void updateOLED()
         display.print("UWB Dist, cm: ");
         display.println(avgDistance / 10.0);
         display.print("Power, mW: ");
-        display.println(result_current_power);
+        display.println(resultCurrentPower);
         display.print("Energy Today, Wh: ");
-        display.println(result_today_energy);
+        display.println(resultTodayEnergy);
         display.print("Timeout Left, sec: ");
         display.println((TIMEOUT_PERIOD - (currTime - elapsed)) / 1000);
     }
     display.display();
+} 
+
+void connectToMQTT() {
+  Serial.print("Connecting to MQTT...");
+  while (!client.connected()) {
+    if (client.connect("ESP32Client", mqtt_username, mqtt_password)) {
+      Serial.println(" Connected!");
+      if(client.subscribe(mqtt_topic)){
+        Serial.println(" Subscribed!");
+      }
+    } else {
+    }
+  }
 }
 
+void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message received on topic: ");
+  Serial.println(topic);
+  
+  String message;
+  for (unsigned int i = 0; i < length; i++) {
+    message += (char)payload[i];
+  }
+  Serial.println("Payload: " + message);
 
-void setup()
-{
-    Serial.begin(115200);
-    mySerial.begin(115200, SERIAL_8N1, 16, 17);
-
-    WiFi.begin(ssid, password);
-    Serial.println("Connecting to WiFi...");
-
-    unsigned long startTime = millis();
-    while (WiFi.status() != WL_CONNECTED && millis() - startTime < 30000)
-    {
-        delay(1000);
-        Serial.print(".");
-    }
-
-    if (WiFi.status() == WL_CONNECTED)
-    {
-        Serial.println("\nWiFi connected!");
-        Serial.print("IP address: ");
-        Serial.println(WiFi.localIP());
-        tapo.begin("192.168.8.9", "pvmehta936@gmail.com", "Password123");
-    }
-    else
-    {
-        Serial.println("\nWiFi connection failed!");
-    }
-
-    // Display
-    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS))
-    {
-        Serial.println(F("SSD1306 allocation failed"));
-        while (1)
-            ;
-    }
-    display.clearDisplay();
-    display.display();
-
-    //  digital pins
-    pinMode(FLAME_PIN, INPUT);
-    pinMode(ENCODER_CLK_PIN, INPUT);
-    pinMode(ENCODER_DT_PIN, INPUT);
-    pinMode(ENCODER_SW_PIN, INPUT);
-    
-
-    Serial.println("ESP32 UART Distance Receiver Started");
-
-    for (int i = 0; i < NUM_READINGS; i++)
-    {
-        distanceBuffer[i] = 0;
-    }
+  // Extract distance from JSON payload
+  DynamicJsonDocument doc(512);
+  DeserializationError error = deserializeJson(doc, message);
+  if (!error) {
+    bluetoothDistance = doc["distance"];
+    Serial.print("Extracted Distance: ");
+    Serial.print(bluetoothDistance);
+    Serial.println(" meters");
+  } else {
+    Serial.println("JSON Parsing Error");
+  }
 }
 
-void loop()
-{
-
-    checkWiFiConnection();
-    checkFire();
-    // always run these functions, but placed in if statement to prevent double-counting
-    if (!mySerial.available())
-    {
-        encoderButton();
-        adjustSettings();
-        check_distance_and_shutoff(avgDistance);
-        updateOLED();
-    }
-
-    while (mySerial.available())
-    {
-        checkFire();
-        encoderButton();
-        adjustSettings();
-        check_distance_and_shutoff(avgDistance);
+void uartCallback() {
+    // Handle data received on UART
+    while (mySerial.available()) {
         char receivedChar = mySerial.read();
-        Serial.print(receivedChar);
 
-        if (bufferIndex < sizeof(buffer) - 1)
-        {
+        // Handle the incoming data in the buffer
+        if (bufferIndex < sizeof(buffer) - 1) {
             buffer[bufferIndex++] = receivedChar;
             buffer[bufferIndex] = '\0';
         }
 
-        if (receivedChar == '\n')
-        {
+        // Process when a new line is received
+        if (receivedChar == '\n') {
             int currentDistance = 0;
-            if (sscanf(buffer, "Distance is %d mm!", &currentDistance) == 1)
-            {
-                if (currentDistance >= 0)
-                {
+            if (sscanf(buffer, "Distance is %d mm!", &currentDistance) == 1) {
+                if (currentDistance >= 0) {
                     addDistanceReading(currentDistance);
-                    avgDistance = getAverageDistance();
-
-                    Serial.print("Current distance: ");
-                    Serial.print(currentDistance);
-                    Serial.print(" mm, Average distance: ");
-                    Serial.print(avgDistance);
-                    Serial.println(" mm");
-
-                    // Get Tapo Energy Data
-                    String energyData = tapo.energy();
-                    tapo.update();
-                    int todayRuntime, monthRuntime, todayEnergy, monthEnergy, currentPower;
-                    String localTime;
-
-                    if (parseTapoEnergy(energyData, todayRuntime, monthRuntime, todayEnergy, monthEnergy, localTime, currentPower))
-                    {
-                        Serial.println("Parsed Tapo energy data successfully.");
-                        result_today_runtime = todayRuntime;
-                        result_month_runtime = monthRuntime;
-                        result_today_energy = todayEnergy;
-                        result_month_energy = monthEnergy;
-                        result_current_power = currentPower;
-                        result_local_time = localTime;
-
-                        updateOLED();
-
-                        if (millis() - lastPeriodicUpdate > PERIODIC_UPDATE_INTERVAL)
-                        {
-                            sendPeriodicData(currentDistance, localTime, currentPower);
-                            lastPeriodicUpdate = millis();
-                        }
-
-                        if (millis() - lastHistoricalUpdate > HISTORICAL_UPDATE_INTERVAL)
-                        {
-                            sendHistoricalData(todayRuntime, monthRuntime, todayEnergy, monthEnergy, localTime);
-                            lastHistoricalUpdate = millis();
-                        }
-                    }
                 }
             }
             bufferIndex = 0;
             buffer[0] = '\0';
         }
     }
+}
+
+void setup() {
+    Serial.begin(115200);
+    mySerial.begin(115200, SERIAL_8N1, 16, 17);  // Define UART pins (RX=16, TX=17)
+    WiFi.begin(ssid, password);
+    Serial.println("Connecting to WiFi...");
+
+    unsigned long startTime = millis();
+    while (WiFi.status() != WL_CONNECTED && millis() - startTime < 30000) {
+        delay(1000);
+        Serial.print(".");
+    }
+
+    if (WiFi.status() == WL_CONNECTED) {
+        Serial.println("\nWiFi connected!");
+        Serial.print("IP address: ");
+        Serial.println(WiFi.localIP());
+    } else {
+        Serial.println("\nWiFi connection failed!");
+    }
+
+    client.setServer(mqtt_broker, mqtt_port);
+    client.setCallback(callback);
+    connectToMQTT();
+
+    tapo.begin("192.168.8.9", "pvmehta936@gmail.com", "Password123");
+
+    // Set UART interrupt callback for data handling
+    mySerial.onReceive(uartCallback);
+
+    // Display
+    if (!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+        Serial.println(F("SSD1306 allocation failed"));
+        while (1);
+    }
+    display.clearDisplay();
+    display.display();
+
+    // Digital pins setup
+    pinMode(FLAME_PIN, INPUT);
+    pinMode(ENCODER_CLK_PIN, INPUT);
+    pinMode(ENCODER_DT_PIN, INPUT);
+    pinMode(ENCODER_SW_PIN, INPUT);
+
+    // Initialize distance buffer
+    for (int i = 0; i < NUM_READINGS; i++) {
+        distanceBuffer[i] = 0;
+    }
+
+    Serial.println("ShutEye Device Started");
+}
+
+void loop() {
+    flame = digitalRead(FLAME_PIN);
+    checkWiFiConnection();
+    checkFire();
+    encoderButton();
+    adjustSettings();
+    check_distance_and_shutoff();
+
+    // The uartCallback is now handling UART reads.
+    avgDistance = getAverageDistance();
+
+    String energyData = tapo.energy();
+    tapo.update();
+
+    if (parseTapoEnergy(energyData))
+    {
+      Serial.println("Parsed Tapo energy data successfully.");
+
+      updateOLED();
+
+      if (millis() - lastPeriodicUpdate > PERIODIC_UPDATE_INTERVAL)
+      {
+          sendPeriodicData(avgDistance, resultLocalTime, resultCurrentPower);
+          lastPeriodicUpdate = millis();
+      }
+
+      if (millis() - lastHistoricalUpdate > HISTORICAL_UPDATE_INTERVAL)
+      {
+          sendHistoricalData(resultTodayRuntime, resultMonthRuntime, resultTodayEnergy, resultMonthEnergy, resultLocalTime);
+          lastHistoricalUpdate = millis();
+      }
+    }
+    client.loop();
 }
