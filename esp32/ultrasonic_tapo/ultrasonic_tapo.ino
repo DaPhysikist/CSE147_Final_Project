@@ -201,21 +201,6 @@ void checkFire()
         display.println("Tapo Off for Safety");
         display.display();
         tapo.off();
-        while (tapo.update() == 2)
-        {
-            tapo.update();
-        }
-        // Wait until fire is no longer detected
-        while (digitalRead(FLAME_PIN) == 1)
-        {
-            delay(100);
-        }
-        // Reactivate
-        tapo.on();
-        while (tapo.update() == 2)
-        {
-            tapo.update();
-        }
     }
 }
 
