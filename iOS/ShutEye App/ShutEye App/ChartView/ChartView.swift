@@ -367,8 +367,7 @@ struct PeriodicData: Codable {
         distance_ultrasonic = try container.decode(Int.self, forKey: .distance_ultrasonic)
         distance_bluetooth = try container.decode(Int.self, forKey: .distance_bluetooth)
         distance_ultrawideband = try container.decode(Int.self, forKey: .distance_ultrawideband)
-
-        let presenceInt = try container.decode(Int.self, forKey: .user_presence_detected) // Custom decoding to handle user_presence_detected as Int
+        let presenceInt = try container.decode(Int.self, forKey: .user_presence_detected)
         user_presence_detected = presenceInt != 0
     }
 }
