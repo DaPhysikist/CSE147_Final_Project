@@ -24,3 +24,22 @@ DELETE FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = 'b
 
 DELETE FROM ShutEyeDeviceEnergyDataHistorical WHERE appliance_name = 'toaster';
 DELETE FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = 'toaster';
+
+SELECT * 
+FROM ShutEyeDeviceEnergyDataPeriodicMeasurement
+WHERE appliance_name = 'microwave'
+AND DATE(local_time) = '2025-03-01'
+AND HOUR(local_time) = 1;
+
+SELECT HOUR(local_time) AS hour, COUNT(*) AS records
+FROM ShutEyeDeviceEnergyDataPeriodicMeasurement
+WHERE appliance_name = 'microwave'
+AND DATE(local_time) = '2025-03-01'
+GROUP BY hour
+ORDER BY hour;
+
+SELECT local_time
+FROM ShutEyeDeviceEnergyDataPeriodicMeasurement
+WHERE appliance_name = 'microwave'
+AND DATE(local_time) = '2025-03-01'
+ORDER BY local_time;

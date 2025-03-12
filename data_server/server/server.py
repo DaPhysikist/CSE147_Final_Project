@@ -14,7 +14,7 @@ db_pass = os.environ['MYSQL_ROOT_PASSWORD']
 db_name = "ShutEyeDataServer"                           
 
 app = FastAPI()
-# app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)       #returns the index HTML page for the default URL path
 def get_html() -> HTMLResponse:                 
@@ -53,7 +53,7 @@ def fetch_periodic_measurement_data(appliance_name: str) -> JSONResponse:
     try:
         db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
         cursor = db.cursor()
-        query = "SELECT * FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = %s ORDER BY local_time DESC;"
+        query = "SELECT * FROM ShutEyeDeviceEnergyDataPeriodicMeasurement WHERE appliance_name = %s ORDER BY local_time ASC;"
         value = (appliance_name,)
         cursor.execute(query, value)
         records = cursor.fetchall()
@@ -104,6 +104,49 @@ def insert_periodic_measurement_data(appliance_periodic_data: dict):
       return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
   db.commit()
   db.close()
+
+@app.get("/appliance_names", response_class=JSONResponse)
+def fetch_appliance_names() -> JSONResponse:
+    try:
+        db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
+        cursor = db.cursor()
+        query = "SELECT DISTINCT appliance_name FROM ShutEyeDeviceEnergyDataPeriodicMeasurement;"
+        cursor.execute(query)
+        appliance_names = cursor.fetchall()
+
+        appliance_names = [name[0] for name in appliance_names]  # Since the result is a tuple (name,)
+        db.close()
+        
+        return JSONResponse(content={"appliance_names": appliance_names})
+    except mysql.Error as err:
+        return JSONResponse(status_code=500, content={"error": f"Database error: {err}"})
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
+    
+@app.get("/available_dates/{appliance_name}", response_class=JSONResponse)
+def fetch_available_dates(appliance_name: str) -> JSONResponse:
+    try:
+        db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
+        cursor = db.cursor()
+        query = """
+            SELECT DISTINCT DATE(local_time) 
+            FROM ShutEyeDeviceEnergyDataPeriodicMeasurement 
+            WHERE appliance_name = %s
+            ORDER BY local_time DESC;
+        """
+        value = (appliance_name,)
+        cursor.execute(query, value)
+        dates = cursor.fetchall()
+
+        # Extract date strings from the result
+        dates = [date[0].strftime("%Y-%m-%d") for date in dates]
+        db.close()
+        
+        return JSONResponse(content={"dates": dates})
+    except mysql.Error as err:
+        return JSONResponse(status_code=500, content={"error": f"Database error: {err}"})
+    except Exception as e:
+        return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=6543)

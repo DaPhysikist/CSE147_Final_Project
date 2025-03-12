@@ -11,6 +11,25 @@
  <Project>
   <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS"/>
   <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Projects"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Projects;QANI"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Projects;QANI;FreeRTOS"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Projects;QANI;FreeRTOS;QANI-FreeRTOS-Common"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;components"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;components;libraries"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;components;libraries;fifo"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;components;libraries;uart"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;modules"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;modules;nrfx"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;modules;nrfx;drivers"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;SDK_BSP;Nordic;NORDIC_SDK_17_1_0;modules;nrfx;drivers;src"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Src"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Src;HAL"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Src;HAL;Src"/>
+  <ProjectSessionItem path="nRF52840DK-QANI-FreeRTOS;nRF52840DK-QANI-FreeRTOS;Src;HAL;Src;nrfx"/>
  </Project>
  <Register1/>
  <Register2/>
@@ -34,6 +53,14 @@
  <Watch4>
   <Watches active="0" update="Never"/>
  </Watch4>
- <Files/>
- <EMStudioWindow activeProject="nRF52840DK-QANI-FreeRTOS" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Common" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <Files>
+  <SessionOpenFile windowGroup="DockEditLeft" x="51" y="139" useTextEdit="1" path="../../QANI-FreeRTOS-Common/main.c" left="0" selected="1" top="117" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="182" useTextEdit="1" path="../../../../../Src/HAL/Src/nrfx/HAL_uart.c" left="0" top="178" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="12" y="222" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/components/libraries/uart/app_uart.h" left="0" top="210" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="252" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/components/libraries/uart/app_uart_fifo.c" left="0" top="217" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="111" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/components/libraries/fifo/app_fifo.c" left="0" top="94" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="660" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/integration/nrfx/legacy/nrf_drv_uart.h" left="0" top="625" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="654" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/modules/nrfx/drivers/src/nrfx_uart.c" left="0" top="619" codecName="Default"/>
+ </Files>
+ <EMStudioWindow activeProject="nRF52840DK-QANI-FreeRTOS" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Common" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

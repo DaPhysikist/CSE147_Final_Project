@@ -109,15 +109,15 @@ class QorvoDemoViewController: UIViewController, TableProtocol {
     let energyChartButton = UIButton(type: .system) // Create button
         
     func setupEnergyChartButton() {
-        energyChartButton.setTitle("View Energy Chart", for: .normal)
+        energyChartButton.setTitle("View Energy Charts", for: .normal)
         energyChartButton.backgroundColor = .systemBlue
         energyChartButton.setTitleColor(.white, for: .normal)
         energyChartButton.layer.cornerRadius = 8
-        energyChartButton.addTarget(self, action: #selector(showEnergyChart), for: .touchUpInside)
-        
+        energyChartButton.addTarget(self, action: #selector(showEnergyCharts), for: .touchUpInside)
+
         energyChartButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(energyChartButton)
-        
+
         NSLayoutConstraint.activate([
             energyChartButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             energyChartButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
@@ -125,11 +125,9 @@ class QorvoDemoViewController: UIViewController, TableProtocol {
             energyChartButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
-    @objc func showEnergyChart() {
-        let selectedDevice = "microwave"
 
-        let chartView = UIHostingController(rootView: BarChartView(applianceName: selectedDevice))
+    @objc func showEnergyCharts() {
+        let chartView = UIHostingController(rootView: BarChartView())
         navigationController?.pushViewController(chartView, animated: true)
     }
     
