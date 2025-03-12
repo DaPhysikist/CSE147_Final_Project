@@ -1,0 +1,15 @@
+### Directory Breakdown:
+- Libs 
+    - Includes some libraries written by Decawave/Qorvo. This folder was untouched from the original SDK code.
+- SDK_BSP
+    - Includes drivers and APIs written by Nordic Semiconductor for their boards. This folder was untouched from the original SDK code.
+- Projects/QANI/FreeRTOS
+    - nRF52840DK
+        - ProjectDefinition
+            - Includes files related to project configuration and setup. The variables in the `ProjectName.c` file were modified to change our project name and board name.
+        - ses
+            -  Contains the `nRF52840DK-QANI-FreeRTOS.emProject` file used to open the project in Segger Embedded Studio. Segger Embedded Studio is needed for compiling and flashing the ultrawideband embedded code.
+    - QANI-FreeRTOS-Common
+        - The `main.c` file was modified to include a call to the `deca_uart_init()` function for setting up UART communication.
+- Src
+    - Contains all of the code used for the embedded application provided by Qorvo, including code for BLE and UWB communication, as well as a Hardware Abstraction Layer (HAL) for communicating with common peripherals. The functions provided in `HAL/Src/nrfx/HAL_uart.c` were used for setting up UART and transmitting data. The `report_cb()` function in `Apps\Src\fira\QANI\fira_niq.c` was modified to include a call to `deca_uart_transmit()` at the end for transmitting data to the ESP32.
