@@ -8,13 +8,13 @@ db_host = "localhost"
 db_user = "root"
 db_pass = os.environ['MYSQL_ROOT_PASSWORD']
 
-db = mysql.connect(user=db_user, password=db_pass, host=db_host)
+db = mysql.connect(user=db_user, password=db_pass, host=db_host)      # Retrieve credentials and connect to the mysql/mariadb server
 cursor = db.cursor()
 
-cursor.execute("CREATE DATABASE IF NOT EXISTS ShutEyeDataServer")
+cursor.execute("CREATE DATABASE IF NOT EXISTS ShutEyeDataServer")     # Creates the database on the server if it does not exist
 cursor.execute("USE ShutEyeDataServer")
 
-cursor.execute("DROP TABLE IF EXISTS ShutEyeDeviceEnergyDataHistorical")
+cursor.execute("DROP TABLE IF EXISTS ShutEyeDeviceEnergyDataHistorical")   # Creates the table for historical data
 try:
     cursor.execute("""
     CREATE TABLE ShutEyeDeviceEnergyDataHistorical (
@@ -30,7 +30,7 @@ try:
 except RuntimeError as err:
     print("Runtime error: {0}".format(err))
 
-cursor.execute("DROP TABLE IF EXISTS ShutEyeDeviceEnergyDataPeriodicMeasurement")
+cursor.execute("DROP TABLE IF EXISTS ShutEyeDeviceEnergyDataPeriodicMeasurement")  # Creates the table for periodic data
 try:
     cursor.execute("""
     CREATE TABLE ShutEyeDeviceEnergyDataPeriodicMeasurement (
@@ -47,5 +47,5 @@ try:
 except RuntimeError as err:
     print("Runtime error: {0}".format(err))
 
-db.commit()
+db.commit()   # Commits the changes to the database and closes the connection
 db.close()

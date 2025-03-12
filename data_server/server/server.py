@@ -7,7 +7,7 @@ import os
 import mysql.connector as mysql
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()                 # Retreives the credentials needed to conenct to the data server
 db_host = "localhost"
 db_user = "root"
 db_pass = os.environ['MYSQL_ROOT_PASSWORD']
@@ -16,12 +16,12 @@ db_name = "ShutEyeDataServer"
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-@app.get("/", response_class=HTMLResponse)       #returns the index HTML page for the default URL path
+@app.get("/", response_class=HTMLResponse)       # Returns the index HTML page for the default URL path
 def get_html() -> HTMLResponse:                 
   with open('index.html') as html:             
     return HTMLResponse(content=html.read())
 
-@app.get("/shuteye_historical_data/{appliance_name}", response_class=JSONResponse)
+@app.get("/shuteye_historical_data/{appliance_name}", response_class=JSONResponse)   # REST API route to fetch historical data
 def fetch_historical_data(appliance_name: str) -> JSONResponse:
     try:
         db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
@@ -31,7 +31,7 @@ def fetch_historical_data(appliance_name: str) -> JSONResponse:
         cursor.execute(query, value)
         records = cursor.fetchall()
         response = {}
-        for index, row in enumerate(records):  # Iterate through the database data to construct the dict
+        for index, row in enumerate(records):  # Iterate through the database data to construct the dict to return as JSON
             response[index] = {
                 "appliance_name": row[0],
                 "local_time": row[1].strftime("%Y-%m-%d %H:%M:%S"),
@@ -48,7 +48,7 @@ def fetch_historical_data(appliance_name: str) -> JSONResponse:
         return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
     
 
-@app.get("/shuteye_periodic_measurement_data/{appliance_name}", response_class=JSONResponse)
+@app.get("/shuteye_periodic_measurement_data/{appliance_name}", response_class=JSONResponse) # REST API route to fetch periodic measurement data
 def fetch_periodic_measurement_data(appliance_name: str) -> JSONResponse:
     try:
         db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
@@ -58,7 +58,7 @@ def fetch_periodic_measurement_data(appliance_name: str) -> JSONResponse:
         cursor.execute(query, value)
         records = cursor.fetchall()
         response = {}
-        for index, row in enumerate(records):  # Iterate through the database data to construct the dict
+        for index, row in enumerate(records):  # Iterate through the database data to construct the dict to return as JSON
             response[index] = {
                 "appliance_name": row[0],
                 "local_time": row[1].strftime("%Y-%m-%d %H:%M:%S"),
@@ -75,7 +75,7 @@ def fetch_periodic_measurement_data(appliance_name: str) -> JSONResponse:
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
     
-@app.post("/shuteye_historical_data")      #insert historical data into the database
+@app.post("/shuteye_historical_data")      # REST API route to insert historical data into the database
 def insert_historical_data(appliance_historical_data: dict):
   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
   cursor = db.cursor()
@@ -90,7 +90,7 @@ def insert_historical_data(appliance_historical_data: dict):
   db.commit()
   db.close()
 
-@app.post("/shuteye_periodic_measurement_data")    #insert periodic measurement data into the database
+@app.post("/shuteye_periodic_measurement_data")    # REST API route to insert periodic measurement data into the database
 def insert_periodic_measurement_data(appliance_periodic_data: dict):
   db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
   cursor = db.cursor()
@@ -105,7 +105,7 @@ def insert_periodic_measurement_data(appliance_periodic_data: dict):
   db.commit()
   db.close()
 
-@app.get("/appliance_names", response_class=JSONResponse)
+@app.get("/appliance_names", response_class=JSONResponse)    # Retrieves list of unique appliance names from the database for the web and mobile app dropdowns
 def fetch_appliance_names() -> JSONResponse:
     try:
         db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
@@ -114,7 +114,7 @@ def fetch_appliance_names() -> JSONResponse:
         cursor.execute(query)
         appliance_names = cursor.fetchall()
 
-        appliance_names = [name[0] for name in appliance_names]  # Since the result is a tuple (name,)
+        appliance_names = [name[0] for name in appliance_names]
         db.close()
         
         return JSONResponse(content={"appliance_names": appliance_names})
@@ -123,7 +123,7 @@ def fetch_appliance_names() -> JSONResponse:
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
     
-@app.get("/available_dates/{appliance_name}", response_class=JSONResponse)
+@app.get("/available_dates/{appliance_name}", response_class=JSONResponse) # Retrieves list of dates with data for a given appliance name from the database for the web and mobile app dropdowns
 def fetch_available_dates(appliance_name: str) -> JSONResponse:
     try:
         db = mysql.connect(host=db_host, database=db_name, user=db_user, passwd=db_pass)
@@ -148,5 +148,5 @@ def fetch_available_dates(appliance_name: str) -> JSONResponse:
     except Exception as e:
         return JSONResponse(status_code=500, content={"error": f"An error occurred: {e}"})
 
-if __name__ == "__main__":
+if __name__ == "__main__":      # Starts the app
     uvicorn.run(app, host="0.0.0.0", port=6543)
