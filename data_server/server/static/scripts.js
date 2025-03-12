@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let energyPresenceChart = null;
   let presencePercentageChart = null;
 
-  async function loadApplianceNames() {
+  async function loadApplianceNames() {   // Used to load all unique appliance names from the data server into the dropdown
     try {
       const response = await fetch("/appliance_names");
       const data = await response.json();
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  async function loadDatesForAppliance(applianceName) {
+  async function loadDatesForAppliance(applianceName) {  // Used to load all unique dates for a specific appliance from the data server into the dropdown
     try {
       const response = await fetch(`/available_dates/${applianceName}`);
       const data = await response.json();
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  async function fetchData() {
+  async function fetchData() {  // Used to fetch the data for the selected appliance and date from the data server, and update the charts
     const selectedDate = dateSelect.value;
     const applianceName = applianceSelect.value;
 
@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(`/shuteye_periodic_measurement_data/${applianceName}`);
       const data = await response.json();
 
-      const filteredData = Object.values(data).filter(entry => entry.local_time.includes(selectedDate));
+      const filteredData = Object.values(data).filter(entry => entry.local_time.includes(selectedDate));  // Filters data to only include entries for the selected date
 
-      const hours = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, "0")}:00`);
+      const hours = Array.from({ length: 24 }, (_, i) => `${String(i).padStart(2, "0")}:00`); // Creates an array of hours from 00:00 to 23:00
 
       console.log("Hours Array:", hours);
       console.log("Filtered Data:", filteredData);
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (previousMeasurement) {
               const previousTime = new Date(previousMeasurement.local_time);
               const currentTime = new Date(currentMeasurement.local_time);
-              const timeDifferenceInSeconds = (currentTime - previousTime) / 1000;
+              const timeDifferenceInSeconds = (currentTime - previousTime) / 1000;  // Gets the total time difference in seconds, millieconds need to be converted to seconds
 
               const milliWattSeconds = timeDifferenceInSeconds * previousMeasurement.current_power;
 
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         userPresencePercentageData.push(totalTimeInHour > 0 ? (totalPresenceTime / totalTimeInHour) * 100 : 0);
       });
 
-      updateTotalEnergyChart(hours, totalPowerData);
+      updateTotalEnergyChart(hours, totalPowerData);     // Updates the charts with the data
       updateEnergyPresenceChart(hours, userPresenceEnergyData, noUserPresenceEnergyData);
       updatePresencePercentageChart(hours, userPresencePercentageData);
 
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  function updateTotalEnergyChart(labels, totalData) {
+  function updateTotalEnergyChart(labels, totalData) {  // Used to update the Total Energy Consumption chart
     if (totalEnergyChart) {
       totalEnergyChart.destroy();
     }
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function updateEnergyPresenceChart(labels, userPresenceData, noUserPresenceData) {
+  function updateEnergyPresenceChart(labels, userPresenceData, noUserPresenceData) {  // Used to update the Energy Consumption with User Presence chart
     if (energyPresenceChart) {
       energyPresenceChart.destroy();
     }
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function updatePresencePercentageChart(labels, presencePercentageData) {
+  function updatePresencePercentageChart(labels, presencePercentageData) {  // Used to update the User Presence Percentage chart
     if (presencePercentageChart) {
       presencePercentageChart.destroy();
     }
@@ -232,6 +232,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  fetchButton.addEventListener("click", fetchData);
+  fetchButton.addEventListener("click", fetchData);  // Event listener for the Fetch Data button
   loadApplianceNames();
 });

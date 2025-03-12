@@ -8,7 +8,7 @@
 import SwiftUI
 import Charts
 
-struct BarChartView: View {
+struct BarChartView: View {  // Bar Chart View
     @Environment(\.presentationMode) var presentationMode  // Back button support
     @State private var appliances: [String] = []
     @State private var selectedAppliance: String? = nil
@@ -49,7 +49,7 @@ struct BarChartView: View {
                 .padding()
             }
             
-            // Fetch Data Button (Enabled only if both appliance & date are selected)
+            // Button to fetch aata (Enabled only if both appliance & date are selected)
             Button("Fetch Data") {
                 fetchData()
             }
@@ -90,7 +90,7 @@ struct BarChartView: View {
                         .frame(height: 280)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 32)
-                        .padding(.bottom, 120) // Increased bottom padding
+                        .padding(.bottom, 120)
 
                         // Chart 2: Energy by User Presence
                         Text("Energy by User Presence")
@@ -128,7 +128,7 @@ struct BarChartView: View {
                         .frame(height: 280)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 32)
-                        .padding(.bottom, 120) // Increased bottom padding
+                        .padding(.bottom, 120)
                         
                         // Chart 3: User Presence Percentage per Hour
                         Text("User Presence Percentage per Hour")
@@ -156,7 +156,7 @@ struct BarChartView: View {
                         .frame(height: 280)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, 32)
-                        .padding(.bottom, 120) // Increased bottom padding
+                        .padding(.bottom, 120)
                     }
                 }
             }
@@ -169,7 +169,7 @@ struct BarChartView: View {
             .padding()
         }
         .onAppear {
-            loadApplianceNames()
+            loadApplianceNames()  // Fetches appliance names on view load to populate the picker
         }
     }
     
@@ -181,7 +181,7 @@ struct BarChartView: View {
         let userPresencePercentage: Double
     }
     
-    var hourlyAggregatedData: [HourlyAggregatedData] {
+    var hourlyAggregatedData: [HourlyAggregatedData] {  // Aggregates data by hour for computing energy consumption in watt hours
         let groupedData = Dictionary(grouping: chartData) { formatHour(from: $0.local_time) }
 
         return groupedData.map { (hour, entries) in
@@ -236,7 +236,7 @@ struct BarChartView: View {
         .sorted { $0.hour < $1.hour }
     }
 
-    func formatHour(from dateString: String) -> String {
+    func formatHour(from dateString: String) -> String {  // Formats date string to display only the hour
         let inputFormatter = DateFormatter()
         inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
@@ -249,13 +249,13 @@ struct BarChartView: View {
         return dateString
     }
     
-    func dateFromString(_ dateString: String) -> Date {
+    func dateFromString(_ dateString: String) -> Date { // Converts date string to Date object
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return formatter.date(from: dateString) ?? Date()
     }
 
-    func loadApplianceNames() {
+    func loadApplianceNames() {  // Fetches all unique appliance names from the data server
         guard let url = URL(string: "http://192.168.8.27:6543/appliance_names") else {
             print("Invalid URL")
             return
@@ -289,7 +289,7 @@ struct BarChartView: View {
         }.resume()
     }
 
-    func loadAvailableDates() {
+    func loadAvailableDates() {  // Fetches available dates for selected appliance from the data server
         guard let selectedAppliance = selectedAppliance else { return }
         let encodedName = selectedAppliance.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         guard let url = URL(string: "http://192.168.8.27:6543/available_dates/\(encodedName)") else {
@@ -325,7 +325,7 @@ struct BarChartView: View {
         }.resume()
     }
 
-    func fetchData() {
+    func fetchData() {  // Fetches data for selected appliance and date from the data serveer
         guard let selectedAppliance = selectedAppliance, let selectedDate = selectedDate else { return }
         let encodedName = selectedAppliance.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         guard let url = URL(string: "http://192.168.8.27:6543/shuteye_periodic_measurement_data/\(encodedName)") else { return }
@@ -359,7 +359,6 @@ struct PeriodicData: Codable {
         case user_presence_detected
     }
 
-    // Custom decoding to handle user_presence_detected as Int
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         appliance_name = try container.decode(String.self, forKey: .appliance_name)
@@ -368,7 +367,6 @@ struct PeriodicData: Codable {
         distance_ultrasonic = try container.decode(Int.self, forKey: .distance_ultrasonic)
         distance_bluetooth = try container.decode(Int.self, forKey: .distance_bluetooth)
         distance_ultrawideband = try container.decode(Int.self, forKey: .distance_ultrawideband)
-
         let presenceInt = try container.decode(Int.self, forKey: .user_presence_detected)
         user_presence_detected = presenceInt != 0
     }
