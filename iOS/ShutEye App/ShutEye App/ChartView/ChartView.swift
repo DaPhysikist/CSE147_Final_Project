@@ -1,3 +1,10 @@
+//
+//  ChartView.swift
+//  ShutEye App
+//
+//  Created by Pranav Mehta on 3/7/25.
+//  Copyright © 2025 ShutEye. All rights reserved.
+
 import SwiftUI
 import Charts
 
