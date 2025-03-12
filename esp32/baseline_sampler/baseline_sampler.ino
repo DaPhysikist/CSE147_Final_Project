@@ -154,7 +154,7 @@ void checkWiFiConnection() {
 void loop() {
     checkWiFiConnection();
 
-    // Get Tapo Energy Data
+    // Get Tapo Energy Data and send it at periodic intervals
     String energyData = tapo.energy();
     int todayRuntime, monthRuntime, todayEnergy, monthEnergy, currentPower;
     String localTime;

@@ -72,10 +72,12 @@ int adjustMode = 0;
 int adjustOption = 0; // 0 = timeout, 1 = distance threshold
 unsigned long lastAdjustTime = 0;
 
+// rotary encoder (rotation)
 int encoderState = 0;
 unsigned long lastEncoderTime = 0;
 unsigned long encoderDelay = 25;
 
+// rotary encoder (button)
 int buttonState = 0;
 unsigned long lastButtonPress = 0;
 unsigned long debounceDelay = 400;
@@ -102,7 +104,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
 int readEncoder()
 {
-    if ((millis() - lastEncoderTime) < encoderDelay)
+    if ((millis() - lastEncoderTime) < encoderDelay) // debouncing
         return 0;
     lastEncoderTime = millis();
     lastButtonPress = millis(); // twisting can be treated as a press
@@ -126,6 +128,8 @@ int readEncoder()
     return 0;
 }
 
+// determines if the button was pressed
+// if the button was pressed, it will enter adjust mode
 void encoderButton()
 {
     int reading = digitalRead(ENCODER_SW_PIN);
@@ -154,6 +158,7 @@ void encoderButton()
     buttonState = reading;
 }
 
+// if in adjust mode, adjust the settings depending on rotary encoder input
 void adjustSettings()
 {
     if (adjustMode)
@@ -179,7 +184,7 @@ void adjustSettings()
             }
             lastAdjustTime = millis();
         }
-        if ((millis() - lastAdjustTime) > 5000)
+        if ((millis() - lastAdjustTime) > 5000) // timeout of adjusting settings after 5 seconds
         {
             adjustMode = 0;
         }
@@ -201,6 +206,21 @@ void checkFire()
         display.println("Tapo Off for Safety");
         display.display();
         tapo.off();
+        while (tapo.update() == 2)
+        {
+            tapo.update();
+        }
+        // Wait until fire is no longer detected
+        while (digitalRead(FLAME_PIN) == 1)
+        {
+            delay(100);
+        }
+        // Reactivate
+        tapo.on();
+        while (tapo.update() == 2)
+        {
+            tapo.update();
+        }
     }
 }
 
@@ -235,6 +255,7 @@ void check_distance_and_shutoff()
       }
       else
       {
+        // if distance still high and timeout countdown complete, turn off tapo
           if (currTime - elapsed > TIMEOUT_PERIOD && tapoState == 1)
           {
               tapo.off();
@@ -392,6 +413,8 @@ void checkWiFiConnection()
     if(!client.connected()){connectToMQTT();}
 }
 
+// OLED normally shows: power, today's energy, distance, and the timeout left
+// If in adjust mode, it shows the current parameter being adjusted.
 void updateOLED()
 {
     display.clearDisplay();
