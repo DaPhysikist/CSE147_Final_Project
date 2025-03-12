@@ -1,4 +1,4 @@
-Directory Breakdown
+### Directory Breakdown:
 
 - ultrasonic_tapo.ino
     - This is the main file that should be uploaded to the ESP32 that is connected to an ultrasonic sensor. It initalizes, collects, and sends data to the Raspberry Pi Server

@@ -1,5 +1,5 @@
 /*
- * @file      QorvoDemoViewController.swift
+ * @file      AppViewController.swift
  *
  * @brief     Main Application View Controller.
  *
@@ -85,7 +85,7 @@ protocol TableProtocol: AnyObject {
     func sendStopToDevice(_ deviceID: Int)
 }
 
-class QorvoDemoViewController: UIViewController, TableProtocol {
+class AppViewController: UIViewController, TableProtocol {
    
     @IBOutlet weak var mainStackView: UIStackView!
     
@@ -106,14 +106,14 @@ class QorvoDemoViewController: UIViewController, TableProtocol {
     
     let logger = os.Logger(subsystem: "com.qorvo.nibg", category: "QorvoDemoViewController")
     
-    let energyChartButton = UIButton(type: .system) // Create button
+    let energyChartButton = UIButton(type: .system)       //Create button object for viewing energy charts
         
-    func setupEnergyChartButton() {
+    func setupEnergyChartButton() {                                           //Function to add the button with styling to the view in the app GUI
         energyChartButton.setTitle("View Energy Charts", for: .normal)
         energyChartButton.backgroundColor = .systemBlue
         energyChartButton.setTitleColor(.white, for: .normal)
         energyChartButton.layer.cornerRadius = 8
-        energyChartButton.addTarget(self, action: #selector(showEnergyCharts), for: .touchUpInside)
+        energyChartButton.addTarget(self, action: #selector(showEnergyCharts), for: .touchUpInside)   //Add the button 'click' action, calls the function to open the chart view
 
         energyChartButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(energyChartButton)
@@ -127,13 +127,13 @@ class QorvoDemoViewController: UIViewController, TableProtocol {
     }
 
     @objc func showEnergyCharts() {
-        let chartView = UIHostingController(rootView: BarChartView())
+        let chartView = UIHostingController(rootView: BarChartView())            //Switch to the ChartView when button is tapped
         navigationController?.pushViewController(chartView, animated: true)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupEnergyChartButton()
+        setupEnergyChartButton()    //Calls the function to load the button in with its styling to the app GUI
         
         // Notification from Settings View Controller
         NotificationCenter.default.addObserver(self,
@@ -373,7 +373,7 @@ class QorvoDemoViewController: UIViewController, TableProtocol {
 }
 
 // MARK: - `NISessionDelegate`.
-extension QorvoDemoViewController: NISessionDelegate {
+extension AppViewController: NISessionDelegate {
 
     func session(_ session: NISession, didGenerateShareableConfigurationData shareableConfigurationData: Data, for object: NINearbyObject) {
         guard object.discoveryToken == configuration?.accessoryDiscoveryToken else { return }
@@ -458,7 +458,7 @@ extension QorvoDemoViewController: NISessionDelegate {
 }
 
 // MARK: - Helpers.
-extension QorvoDemoViewController {
+extension AppViewController {
     
     func pairToAccessory(_ deviceID: Int) {
          do {
