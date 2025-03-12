@@ -205,7 +205,11 @@ void checkFire()
         display.println("FIRE DETECTED!!!");
         display.println("Tapo Off for Safety");
         display.display();
-        tapo.off();
+        while (digitalRead(FLAME_PIN) == 1)
+        {
+            tapo.off();
+            tapo.update();
+        }
     }
 }
 
