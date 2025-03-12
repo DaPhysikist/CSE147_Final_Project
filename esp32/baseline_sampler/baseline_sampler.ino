@@ -18,7 +18,7 @@ const char* password = "DaPassword123!";
 const char* serverIP = "192.168.8.27";
 const int serverPort = 6543;
 
-const String applianceName = "monitor";
+const String applianceName = "mac-mini";
 
 // Timers for periodic data updates
 unsigned long lastPeriodicUpdate = 0;
