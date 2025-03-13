@@ -558,7 +558,7 @@ void loop() {
     encoderButton();
     adjustSettings();
     check_distance_and_shutoff();
-
+    updateOLED();
     // The uartCallback is now handling UART reads.
     avgDistance = getAverageDistance();
 
@@ -569,7 +569,7 @@ void loop() {
     {
       Serial.println("Parsed Tapo energy data successfully.");
 
-      updateOLED();
+      
 
       if (millis() - lastPeriodicUpdate > PERIODIC_UPDATE_INTERVAL)
       {
