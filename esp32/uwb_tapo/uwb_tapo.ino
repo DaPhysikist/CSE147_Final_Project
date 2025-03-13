@@ -60,7 +60,7 @@ const unsigned long HISTORICAL_UPDATE_INTERVAL = 3600000; // 1 hr
 
 // Main control variables
 int TIMEOUT_PERIOD = 15000;  // in ms
-int UWB_DISTANCE_THRESHOLD_CM = 10; // in centimeters
+int UWB_DISTANCE_THRESHOLD_CM = 30; // in centimeters
 int avgDistance = 0;
 
 // Bluetooth distance
