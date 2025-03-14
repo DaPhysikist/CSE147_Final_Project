@@ -60,7 +60,7 @@ const unsigned long HISTORICAL_UPDATE_INTERVAL = 3600000; // 1 hr
 
 // Main control variables
 int TIMEOUT_PERIOD = 15000;  // in ms
-int UWB_DISTANCE_THRESHOLD_CM = 10; // in centimeters
+int UWB_DISTANCE_THRESHOLD_CM = 30; // in centimeters
 int avgDistance = 0;
 
 // Bluetooth distance
@@ -205,7 +205,11 @@ void checkFire()
         display.println("FIRE DETECTED!!!");
         display.println("Tapo Off for Safety");
         display.display();
-        tapo.off();
+        while (digitalRead(FLAME_PIN) == 1)
+        {
+            tapo.off();
+            tapo.update();
+        }
     }
 }
 
@@ -554,7 +558,7 @@ void loop() {
     encoderButton();
     adjustSettings();
     check_distance_and_shutoff();
-
+    updateOLED();
     // The uartCallback is now handling UART reads.
     avgDistance = getAverageDistance();
 
@@ -565,7 +569,7 @@ void loop() {
     {
       Serial.println("Parsed Tapo energy data successfully.");
 
-      updateOLED();
+      
 
       if (millis() - lastPeriodicUpdate > PERIODIC_UPDATE_INTERVAL)
       {
