@@ -54,13 +54,13 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="51" y="139" useTextEdit="1" path="../../QANI-FreeRTOS-Common/main.c" left="0" selected="1" top="117" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="21" y="123" useTextEdit="1" path="../../QANI-FreeRTOS-Common/main.c" left="0" selected="1" top="117" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="182" useTextEdit="1" path="../../../../../Src/HAL/Src/nrfx/HAL_uart.c" left="0" top="178" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="12" y="222" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/components/libraries/uart/app_uart.h" left="0" top="210" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="252" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/components/libraries/uart/app_uart_fifo.c" left="0" top="217" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="252" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/components/libraries/uart/app_uart_fifo.c" left="0" top="211" codecName="Default"/>
   <SessionOpenFile windowGroup="DockEditLeft" x="9" y="111" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/components/libraries/fifo/app_fifo.c" left="0" top="94" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="660" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/integration/nrfx/legacy/nrf_drv_uart.h" left="0" top="625" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="654" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/modules/nrfx/drivers/src/nrfx_uart.c" left="0" top="619" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="660" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/integration/nrfx/legacy/nrf_drv_uart.h" left="0" top="619" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="654" useTextEdit="1" path="../../../../../SDK_BSP/Nordic/NORDIC_SDK_17_1_0/modules/nrfx/drivers/src/nrfx_uart.c" left="0" top="613" codecName="Default"/>
  </Files>
- <EMStudioWindow activeProject="nRF52840DK-QANI-FreeRTOS" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Common" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <EMStudioWindow activeProject="nRF52840DK-QANI-FreeRTOS" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Common" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>
